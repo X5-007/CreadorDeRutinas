@@ -1,0 +1,2 @@
+# Los respaldos de rutinas llevan la clave sin cifrar: nunca van al repositorio.
+respaldo-*.json

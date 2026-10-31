@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rutina de Lumont — Damian Torres</title>
+<meta name="description" content="Tu plan día por día, con video de cada ejercicio. Ábrelo desde el link que te mandaron.">
+<meta name="theme-color" content="#171512">
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Vista previa al compartir por WhatsApp -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Damian Torres — Coach de entrenamiento">
+<meta property="og:title" content="Rutina de Lumont — Damian Torres">
+<meta property="og:description" content="Tu plan día por día, con video de cada ejercicio. Ábrelo desde el link que te mandaron.">
+<meta property="og:url" content="https://x5-007.github.io/CreadorDeRutinas/r-r2mm-95su/">
+<meta property="og:image" content="https://x5-007.github.io/CreadorDeRutinas/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Rutina personalizada de Damian Torres">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rutina de Lumont — Damian Torres">
+<meta name="twitter:description" content="Tu plan día por día, con video de cada ejercicio. Ábrelo desde el link que te mandaron.">
+<meta name="twitter:image" content="https://x5-007.github.io/CreadorDeRutinas/og.jpg">
+
+<link rel="icon" href="../img/perfil.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../base/rutina.css">
+</head>
+<body>
+
+<header class="barra" id="barra">
+  <div class="caja barra__interior">
+    <img class="barra__foto" src="../img/perfil.webp" alt=""
+         onerror="this.onerror=null;this.src='../img/perfil.png'">
+    <div>
+      <div class="barra__nombre" id="coachNombre"></div>
+      <div class="barra__rol" id="coachRol"></div>
+    </div>
+  </div>
+</header>
+
+<section class="ficha">
+  <div class="caja ficha__interior">
+    <p class="antetitulo">Plan de entrenamiento</p>
+    <h1 id="alumno"></h1>
+    <p class="ficha__resumen" id="resumen"></p>
+    <div class="ficha__chips" id="chips"></div>
+    <div class="nota-coach" id="notaCoach"></div>
+  </div>
+</section>
+
+<nav class="dias" id="dias" aria-label="Días de entrenamiento">
+  <div class="caja dias__scroll" id="diasTabs"></div>
+</nav>
+
+<div id="diasPaneles"></div>
+
+<footer class="pie">
+  <div class="caja">
+    <img class="pie__foto" src="../img/perfil.webp" alt=""
+         onerror="this.onerror=null;this.src='../img/perfil.png'">
+    <strong id="pieNombre"></strong>
+    <p id="pieRol"></p>
+  </div>
+</footer>
+
+<a class="wa-boton" id="waBoton" href="#"></a>
+
+<script type="application/json" id="datos">{"v":1,"iv":"okusA1bRnA6lCXsA","d":"Bh6YQ1DhefMG0Vh_8zq1hzs3H1AGY-nCNsAU3YQSqDx7HSZKiOXKS_LzqNVaK85vGB4cQV3mJaLCoDtC-oYtt5qWZDI9Gd_2cpk0vK8peg4T142BZKL1uNnxNhZ-HeJarcTMw7PrGQR-9xC54hh7ZJ0HiXLNU2G9TzXI97gyV52kReYa1xi09qqx1nWFflog7wqRNbo2oFLQM0r-rcVEaf23G1WpA3nJfS0rJ_rELGw8BJSiremqF_gD0-u6_y67EWTWtLeKy2V0UHCl798lLH-h6jr1CuBbZAsNoaUxpu4XaDWDFbQoVaoQUAg-Nc6IZoJpG8KnIqdlkxDH-mfvwv26yzj9ylS-CHqi2i-Qeg9KvxFUyh6cKWWbbc54-PAjJotV6SVZAl4LtYaAcQH3ap5y_hpj1c8tQQnApGoDDLVrOaDudbCne6lUDRDUA4cPEpBKVSVELG9oG5e3R38tF2bYfRUWylhwfwXOf_YadiZYlGTK1YhKmpADShTT2IsHXxdHnpA8owXGc5xq--CkFBfS89ETBSCyMz6rro6VBppeyX1mafs8ItQ-hwkg2_qpBZLHAFrya69dob7FJcHeiZiXSDBnCVzMhrMHM0ScBdjU_-EWkNWzB5RJ6HKK838yYaXqVB5A0WDC-YxwJkOsLVKgqHX3CmOB06Q8CnyuglGjHUNiXxcF4EAUNb_dTmpigw-ixB5KgTEoNqFHKmPxMzpuv4vYPIR_r-04jih0HNRdFdp9XXwgWKKU9pmxrFmGjCXgmYjqtN9AI-vbtSWBo78DhO78ScXhG9-FRjUh3YwcZVoUKRs_yqU5mKBapU4ssJjLIMuFv5QKQfzhR8xmen6DMX3BOIQt0F47u896jlebFkWfTpWSaiFQjH9MuSqzAGmOKQElX-esX4KxZ2-ffI7y73_-udkllAwXMDHjV1AqSk1jgZCqda0LBpc__Buxb3qiWnvphJQWZOR85vRQaKkXW_p3Uj4OgxJ0n_HAbhKzvKnvqPq718XGgKQWBw79qcWnMLbyQ4FtqIImoftXFYoaeQRESavEuaX-rkgUamK7tNZflNEVrJVLtOLO40YijkoC-hmYSHK3vUQKqmp1SvC9SmORLjHZ_9tCgUdarCXzNE5AqvpXJkRgZ4skltykcELONp2U0L-YxfVcvjp47iE71d9-1uR9r5MdbgkIS2C5aoC73ZFel673t4u88EueaNQx3DvCpl2dHibvv5OmrZoOd5rgVJg6X4Z5j3PwauSXKgGijQ4xKLXrtXGeOeoBMMil8BR8Lm2U4Q6BCyrBIB-H5FvcwZdbkXEqDtly1yg8U3mibaJaHS4djCllTsRisMxJQIKouyc4f4vM5kDVNgQCPSh4VpuQoItv1eKE7Rrw5vEkE0LXmLfIvoQBDxKDcZRE5iSOiOZWRzAN0d_sN5D_ED21awr4osLr0shK4rYM4c7JSeIrvBi1OuuNX-G_QIf7L5oR_I-B32gU9nc2ruF7r7bD6dFBWXQDXhg9-57EJMj0RHa6RPb5b6NqDAm-GI_HM1eZ1xHUwFbnGKoNiDhk-1F3p3Kdbm3J6oT7hX_i5KZMJozl5F-4Gw0_w1iGQC1KJBghzaWpYnKMmZYzHwY9f5WRHDljWp_LNESztkDFtBe_tPLI1M_Ks1UCHSIwvkTqG6QbwJ3rhnD2_oijfry9HVHbAUD-dKlmk-SDBENZuJlspjnh1tUmP8GwaDnmEsmK0fy3AxyCwjS_9hn2qi3p_N8hvZNN6QGRXT-_zckBtLBUVgj9uIICuoKbylYR8qBZPMkAE1ijoo6eXTU9qxEVtNAtISk7Mwkdw1CvmTExTxLnV1oRVzNWdhzMwyS9c_2jbLtZXaXOjEzPs-_n0p2-sELlspeevgPzSwUpIT_bIhVHnBCRnvvGZBeFomebWkKElufjkJeAUOyj2T3Svchf8sgbtSkZpVmnYWdaaD9yBPnV36pSaSEX4uo8nLIM5esMdvM_kB1T4pregRjAr5QAEhjq7EAJmaZvBKzX7MwcXB80zPZeawEWo1wWWiWFqEFsxDWYeG71eEZKpmP2pwGj-SFEtqBfwg8N4yWqbJOe-EvrGUJW4rfNiV90_qpjcLE0W5Q5ECA_-aCrj1Af0OizDxL73yEn24jvp5wdTI5a76KdWbi2rjbktfFSS5OqMSoUaeSBcJe9S7wDxV4cGeKhkQOkRrxlNIfkBinoc71_l_pQEDe35i544BeFM3SiWnwNV0yyK-e7oYgUbKTEQy6hOWz4c4NXSiNt9pXMg5OuJnpU4dOK7fXGJLqq36Ynj1ms49jtEQ--Gjoq5QYKSNpSql3-rI7c4iHxmmIisNtebt4POGUH5rpBXfkBf2NWvCZSDOowP406gpNyaa1i9NrowDN2XFsr4yXLbkKHB4gay6aX8k6tBm_cFopxdnjEnJbGGD9phv4ZuTnH7nFw77Y_VG1G9IWbGZk0iCcWLVfjrWg6ABdjp3mC4YKbY6a5kUGL-TxqyXBklCkwRhy19Gr-jsDjHBcHj9Jq6fAIK91imjG-8qAmwCmoCnSM96PLnjslWRLhAWUab8v-7Zk4QYHtFX6dwnYlf-wnpf6AN0xXV4Zh_usfkDCQJchsV6v9VdRQo2hhhLP5X7EUzPEIqC-JUfEfiUn448etF6N5DdN2cy5O6IGfRjB56qg40UlRJO6WWLfnHEDWZR4Ji_rxz8yV9ioEvtIwm-HrfR2HT-T6sYB3ekdvLPrCVzbTad7oDjzZsVYpIbj9odMtyN8xaw7qW8ih_a4Ss5T0qmQjmXmZ86btLJExrJjgSs_cU4D3VlUyrXVKeym2G6WHz90bXaBUJrCmuSVpLFgXjTYaIX9m2xl7gZ7Vf2yuFMoIrpwkIc8EFl6k0ZwW3LvUmMmnIdaSdG1Gz3Lp6VmhCzHlPUDFsiNBwjk-v4-UxrpdFQVQa7bO0rCwgTNqHCJ72CQv8ce1LbeFdOpy4SUNAPY9maC6dFsqGjwl9CvDfRGgMXnFvxlIjj29ZBLwJs4IC2jyq4CTzp0wb06sPRTYNtLPxvSm2GMs_xr8sMm7IjNp-TIACtujs0pHKKXbZLwbbDtI_xDsGsK0fW6weBsCAbwiy-SxAZ6S0T5dQWfa3hojbkbB5QA3a0fMKKme-wtypo4FUO51NB0gkzjEJ8BrxRcpnKxFDXceichnRbcclpHnhx8fubV8xvwU9x6r6LXDsDRsNhlu5pw3S8G2WUaZavEL2Wqvrqr0wj4frFyoUHj61M6hC1NL_NPinTR36W7RQ406NdekZv-9-loakHD1uM-4Bx5r97iZ0l4q8Q53P1nVU5hJ4tBdy2RnvfXk-GWW4_f8xoIBGKQFarEL52-IbOECZf8z0Y7VjCIVJFNdVCWI4UgrGseYCnBqWJT51djxlKMGuU-LalIpGN_ruKAa_rxhwqyt3fjM9dvf0WXZnL6ebwE90qIISoB2aq7suWr_cADbTaf7m5hW071vXDUG5U6bP1KycJifwS_r5GLtX-gQoZDRE1n48A0vUlqh8KIGeH4p0qyYPUtPJ5o6DXpvUDrkpmXhaZtuZ2PU_-nnTzRpzLr305Hzj2jxcjNHDrFgauAQh1cCg8TikbKCTfCLu9M-ZVgt3QJlHha8FWCInY1tfFKoxG1YyosfxGn5B-iLPoz2Df3s3vgHBQaMZ-styjYgxZJ9mGzucbK4wfH7RSSLms_e0lA-F7ra_h200XW0chZ3AddwSdAFh13LhmGgScfszjjLBJOnyogYjkdYApb2FNv71vY47JIEna9w_Bbjs03ro9Fz3tN0nnSa13Gjl5AXpSNBkNgS35y2BMIw0nL1zf6uBR5hECSRA6OQUF6beOzCybUTSoCu4-vepuEvIL81nmgRrODzmiHOsO1vNTEYm3ju71xOHDTJVadPP-0HtJEZ0V-OfcZhxc0bK_KRx23gLirPwzHWxV06W_DDhi3TFncuWUoZ6lhaprDORNMu9kETSPm9mOyMksGhTK0NIbzt7_X4rV8m7p3GDUf3j3mMCqmBjTRVQGMi_sa4m392VTc667Ca9hGNikIb6cvf-zU9s4YjKi00SJaISMq42pf7Q5yXusDY0tpbhZEh7MTKUtaK1kb8WzwQD8D6qn-xQJ6hX3cNUWapskFXaeKmFuvMCXsmSXhLgEZe8-ODGnoLQyyj2V_Hy_mAi1loUVO0JTajRPipyO794a4YRTeXFOVP-gfEu9IGWMNi_ejsS0hlGYrlPKBqvfCBd1z7GUhdgtAxuRmNj3FqqMjQdt7GMWenc4tJZJIWk0GgBUkKEzfYPijfzR2Ki3fKgz1FMC1JtEI_Zi7h74tOTGcxQFap6oVyhpX3wQ-cBIQw7Rzbki8rJIsGXFGejiZjSLCpbTZpkpOBQ5TdYDgljbMJ820bj_RFxzdjiXaQkz494xbcAZ27H1gPN4BSYAnSiKOtn6XhsG76y1_rpcVOe0a1uZk5S9LH7L7_D4M0nFLduXWT-MsXMkbSjU6DTiVOWKGCYFQZxTlMUQ7B8T_lGBFZT0zv5_Qf4s7U8y8NSMhUNTsy86YjS4ES_woCF8NliRZ-k5BXu_moNYzN_jsrARW7M6O9LFSXZyf-Aajt3VfYJ9ohCmRn1NU71FF-BBsMj-yZNPBmy-l1OBZCfvxn-oTBcjJD16ywLlSkUDe1fEDbR5CjErcEjGdhtTH84nCpDc7Qq754_-Ky9JOr57NCdvYLuWG6_PWv_dUuuFkOwguNFgf9_bKSxVTFBxwhDBhp--eIfBvfee6B6Py6PZClB7_0WuidvmnQqC54nvLpQ1c-iLlFSSNuQtobGPZNLQU11wQd6zdIyXwzgR_nMQxvsp8Gtw3ShB0oVDk4bOYpWao0H9NOxrK6d_wHElyNF11dgFjMzBBFHVLzd9mJo_fjIatnTXwFl-OjbBn4qP5wGbro6karREyEaAbxBzRPvPYtn4kBrej6meuvY7Amo0khEeNU-wz9u2YuX1u-ysc2lH4GjdSShCr_zrK29hZu6SaAZ8oCsjSLMAKTaxMBwLwAk5I078dlWZpwVXzGgz2ytibejzFc8iYgojHxdURv7rFBIqGOqIfdsrK9yD3mhk1xbMTkFu3IIHHs2kktxt3PQ_VJuTWadsr0v5BRl9Wg4a8sPg44zG6jTWj_L-lP3rT-tkl0x4GZzGEXPqBApHv2W-ChPEE6o8YduBot9l5tahyhbpqGLa84RQZlLI-KQmo4A6H-rYwfFcTREJZw1gdoEaid3Su2eMMaPFlW2OB3Q0UQ7FkP0r6_aO-hyai1U6qsIoD5OcqN4ybpKQy1hrnbOmXjNfOmIHZDlaZdQDKIl9-BgtSQbcSXHq3c3WtORh2TV_62n4e7qGri4c-66e-o_q7Clww7cXVohBTWfkmRyWDCQz_ce2NxOCB9BZBHfR7LMHSHIbBQRQsVC1UaGN3aSy3wWa96s8_-ajU-GZiMYjYo3YkpmPQmhrGwxm7xa9ylmmTlKIva6akr8njqwdsKzFxXdCYVjPmOTIftxc70_WBZqebXerL_jENt_DEapAG4DDPox0pr1YByMnKn3jkaGjcLRhlO1TAkPiK9GjH9Ubbku5hDCznCoufuOcNL-ATPFeDmlU9i_KJ8SB5AviwTDYalXBXKlAtUV9g3uuv00VXm_7uC_h6z98JM0KAi_QpT30Y5EqKh2HkL_JF7Y9hjVb58DlErKDlSQl9_fFrxO6nc_70IkXbW97Yjyhhl7Fwwm_1KTN-i-G0p-5asg69aIXPlm4CLS-mamwCbJJY1XFPZMnlxCYP36EusZ1aXi-DoQh4Bj4UusLfe9bW4DWu1DgELuq118D70ucAFSYGut-AFPjcYUHRrWncv4ycwU1p3LmMBBSq4qF9VG6hf17OLZqrpDdsvq3Zkd2BJtlMT1_7FRMlIvS7Gxl50vgg9PJ77SYZTrGahVrMXesy_HWFuFXz7l789qDLNdCWJeqmfBH2F31nXE_5CjHlRrc50DSDceJgBRITLVofA2XVQtJ2pKuxRU_8RF5zpm7Ej2JWXEkqqdbMujb4uRt1dHKmVES2TGLX-ZTIEbfbygKBRMcam0IuuYjBiaTM558ir7xkNTJ4mBr9pcis-lIDm2t5hEOZBrNaeN7-T9gms80uQYqUo8xWjQWH5LDVAJhUU7G5kiMKyyd4aArLUkCtV3SJHF1tNMuvQGGz15bIxJo0oMa8XuIcR5OPr4mo-WbahiiEUwDBwpjAZm5Q9wqadWlQHTv-1eMUDSje7_x7zBTpx5V2_5mXFFjgOD7LS23u4JdDZ2bVs3gVYAhOepOIlUKXS-V_J9_MT0kSISnkZ4c7M652fK5gDbO2KXD55D55siI037khzr2Qyq7ihJefGDiE4wnCEm6uk4CSVe8pjxOv1qCCLPDJnhInrfFk43QqmcJN8alF4EhqbJwWShu3IvWeJA46epyPXnSxzBofqT6aVI1yLfKux1jlaHbnJ77ZZtwUFLDmvBpytv4wlmibft-eeug4a3AiEB5EVac-tILVDCi7msFlsaNaFSK5RA5l_jiiMRtALBd6GgAQf5B-wkZfIhC_NTLLBkdktc7EezmW3"}</script>
+<script src="../base/rutina.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+CLIPS DE EJERCICIOS
+===================
+
+Aquí van los videos cortos de cada ejercicio. Los tres que vienen
+(press-banca-maquina, jalon-al-pecho, sentadilla-smith) son EJEMPLOS:
+reemplázalos por tus grabaciones reales con el mismo nombre de archivo
+y la rutina se actualiza sola.
+
+CÓMO DEBE SER CADA CLIP
+-----------------------
+Duración    3 a 6 segundos (una o dos repeticiones completas, en loop)
+Formato     MP4, códec H.264
+Tamaño      640 x 640 (cuadrado) o 720 x 1280 (vertical). Sé consistente.
+Peso        menos de 1 MB. Idealmente 150-400 KB.
+Audio       sin audio (se reproducen en silencio de todos modos)
+
+El alumno suele verlos con datos móviles: entre más ligeros, mejor.
+
+CÓMO NOMBRARLOS
+---------------
+Usa exactamente el mismo texto que pusiste en "clip" dentro de
+ejercicios.js. Sin espacios, sin acentos, en minúsculas:
+
+    press-banca-maquina.mp4
+    jalon-al-pecho.mp4
+
+Opcional: pon también una imagen con el mismo nombre terminada en .jpg
+(press-banca-maquina.jpg). Es lo que se ve mientras carga el video.
+
+CÓMO COMPRIMIR UN VIDEO QUE PESA MUCHO
+--------------------------------------
+Si tienes ffmpeg instalado:
+
+    ffmpeg -i grabacion.mov -t 5 -vf "scale=640:640:force_original_aspect_ratio=increase,crop=640:640,fps=25" \
+      -c:v libx264 -profile:v baseline -level 3.0 -crf 30 -an -movflags +faststart press-banca-maquina.mp4
+
+Si no, cualquier compresor en línea sirve: pide MP4 / H.264 / sin audio.
+
+SI TODAVÍA NO TIENES EL VIDEO
+-----------------------------
+Deja clip: "" en ejercicios.js. El ejercicio aparece igual en la rutina,
+solo que con un recuadro en lugar de la animación.

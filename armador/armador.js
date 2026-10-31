@@ -1066,6 +1066,16 @@ ${todos.map(linea).join('\n')}
     toast('Descargando ' + imgs.length + ' imágenes');
   });
 
+  // --- Tema claro / oscuro ---
+  const LS_TEMA = 'cdr_tema';
+  function aplicarTema(t) {
+    document.documentElement.dataset.tema = t;
+    try { localStorage.setItem(LS_TEMA, t); } catch (e) {}
+  }
+  $('#btnTema').addEventListener('click', () => {
+    aplicarTema(document.documentElement.dataset.tema === 'oscuro' ? 'claro' : 'oscuro');
+  });
+
   // --- Token ---
   $('#estadoRepo').addEventListener('click', () => {
     const r = Publicador.detectarRepo();
@@ -1131,6 +1141,11 @@ ${todos.map(linea).join('\n')}
   }
 
   (async function inicio() {
+    // Arranca en oscuro, que es como se pidió; el interruptor guarda la elección.
+    let tema = 'oscuro';
+    try { tema = localStorage.getItem(LS_TEMA) || 'oscuro'; } catch (e) {}
+    document.documentElement.dataset.tema = tema;
+
     $('#barRol').textContent = `${COACH.nombre} · uso interno`;
     cargarExtras();
     llavero = leerLS(LS_LLAVERO, []);

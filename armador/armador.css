@@ -530,3 +530,80 @@ textarea.input { resize: vertical; line-height: 1.5; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .001ms !important; animation: none !important; }
 }
+
+/* -------------------------------------------------------------------------
+   MODO OSCURO / ROJO
+   -------------------------------------------------------------------------
+   Se activa con el interruptor de la barra. Solo se vuelven a definir los
+   tokens: todo lo demás del archivo funciona igual en los dos modos.
+   ------------------------------------------------------------------------- */
+:root[data-tema="oscuro"] {
+  /* Superficies */
+  --blanco:    #241e1c;
+  --papel:     #141110;
+  --papel-2:   #1f1a18;
+  --tarjeta:   #1b1615;
+  --tinta:     #0e0b0b;
+  --tinta-2:   #181313;
+
+  /* Texto */
+  --texto:     #f2ede6;
+  --texto-2:   rgba(242, 237, 230, 0.74);
+  --texto-3:   rgba(242, 237, 230, 0.48);
+  --texto-inv: #f2ede6;
+  --texto-inv-2: rgba(242, 237, 230, 0.72);
+  --texto-inv-3: rgba(242, 237, 230, 0.45);
+
+  /* El acento pasa de oro a rojo */
+  --oro:       #e0463c;
+  --oro-claro: #ff7264;
+  --bronce:    #c93329;
+  --bronce-txt:#ff8d7e;
+  --oro-suave: rgba(224, 70, 60, 0.15);
+  --oro-linea: rgba(224, 70, 60, 0.42);
+
+  --arcilla:   #ff6a58;
+  --verde:     #1f9a5a;
+
+  /* Líneas */
+  --linea:     rgba(242, 237, 230, 0.10);
+  --linea-2:   rgba(242, 237, 230, 0.20);
+  --linea-inv: rgba(242, 237, 230, 0.12);
+
+  --sombra-s: 0 1px 2px rgba(0,0,0,.4), 0 3px 12px rgba(0,0,0,.3);
+  --sombra-m: 0 12px 40px rgba(0,0,0,.6);
+
+  color-scheme: dark;
+}
+
+/* Ajustes que no son solo de color */
+:root[data-tema="oscuro"] .taller { background: var(--linea-2); }
+:root[data-tema="oscuro"] .col--rail { background: var(--tinta); }
+:root[data-tema="oscuro"] .btn--publicar { color: #fff; }
+:root[data-tema="oscuro"] .btn--publicar:hover { color: var(--tinta); }
+:root[data-tema="oscuro"] .btn--primary { color: #fff; }
+:root[data-tema="oscuro"] .chip.on { background: var(--oro); border-color: var(--oro); color: #fff; }
+:root[data-tema="oscuro"] .dia-card__n { background: var(--oro); color: #fff; }
+:root[data-tema="oscuro"] .cont__btn:hover { background: var(--oro); color: #fff; }
+:root[data-tema="oscuro"] .ejb__mas:hover { background: var(--oro); border-color: var(--oro); color: #fff; }
+:root[data-tema="oscuro"] .modal { background: rgba(0, 0, 0, .66); }
+:root[data-tema="oscuro"] .toast { background: var(--papel-2); border: 1px solid var(--linea-2); }
+:root[data-tema="oscuro"] .bar__brand img,
+:root[data-tema="oscuro"] .ejb__gif .mini { background: var(--papel-2); }
+:root[data-tema="oscuro"] .peligro { background: rgba(255,106,88,.09); border-color: rgba(255,106,88,.32); }
+:root[data-tema="oscuro"] .img-error { background: rgba(255,106,88,.09); border-color: rgba(255,106,88,.32); }
+:root[data-tema="oscuro"] .resultado-ok { background: rgba(31,154,90,.12); border-color: rgba(31,154,90,.34); }
+
+/* Interruptor de tema */
+.tema {
+  width: 38px; height: 38px; flex: none;
+  display: grid; place-items: center;
+  border: 1px solid var(--linea-inv); border-radius: 50%;
+  background: transparent; color: var(--texto-inv-2);
+  cursor: pointer; transition: border-color .2s var(--suave), color .2s var(--suave);
+}
+.tema:hover { border-color: rgba(245,241,234,.4); color: var(--texto-inv); }
+.tema svg { width: 17px; height: 17px; }
+.tema .luna { display: none; }
+:root[data-tema="oscuro"] .tema .sol { display: none; }
+:root[data-tema="oscuro"] .tema .luna { display: block; }

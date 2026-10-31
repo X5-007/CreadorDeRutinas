@@ -6,7 +6,6 @@
 <title>Armador de rutinas</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#171512">
-
 <link rel="icon" href="../img/perfil.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +14,7 @@
 </head>
 <body>
 
+<!-- ===================== BARRA ===================== -->
 <header class="bar">
   <div class="bar__brand">
     <img src="../img/perfil.png" alt="">
@@ -23,238 +23,273 @@
       <span id="barRol">Uso interno</span>
     </div>
   </div>
-  <div class="bar__actions">
-    <button class="btn btn--ghost" id="btnImportarLink" type="button">Abrir desde link</button>
-    <button class="btn btn--ghost" id="btnImportar" type="button">Abrir respaldo</button>
-    <button class="btn btn--ghost" id="btnVista" type="button">Vista previa</button>
-    <button class="btn btn--ghost" id="btnImagenes" type="button">Imágenes</button>
-    <button class="btn btn--primary" id="btnExportar" type="button">Exportar rutina</button>
-  </div>
-  <input type="file" id="fileImport" accept=".json,application/json" hidden>
+  <button class="estado" id="estadoRepo" type="button">
+    <span class="estado__punto"></span>
+    <span class="estado__txt">Comprobando…</span>
+  </button>
 </header>
 
-<main class="layout">
+<!-- ===================== TRES COLUMNAS ===================== -->
+<main class="taller">
 
-  <!-- ============ BIBLIOTECA ============ -->
-  <aside class="biblio">
-    <div class="biblio__head">
-      <div class="biblio__top">
-        <h2>Biblioteca</h2>
-        <button class="btn btn--mini" id="btnNuevoEj" type="button">+ Nuevo</button>
-      </div>
-      <p id="biblioDestino">Agrega al día activo</p>
-      <div class="biblio__guardar" id="biblioGuardar" hidden>
+  <!-- ---------- 1. EJERCICIOS ---------- -->
+  <aside class="col col--biblio">
+    <header class="col__cabeza">
+      <h2>Ejercicios</h2>
+      <button class="btn btn--mini" id="btnNuevoEj" type="button">+ Nuevo</button>
+    </header>
+    <div class="col__filtros">
+      <input type="search" id="buscar" class="input input--busca" placeholder="Buscar…" autocomplete="off">
+      <div class="chips" id="filtros"></div>
+      <div class="guardar-biblio" id="biblioGuardar" hidden>
         <p id="extrasCuenta"></p>
-        <button class="btn btn--mini" id="btnBajarBiblio" type="button">Guardarlos en el sitio</button>
+        <button class="btn btn--mini" id="btnBajarBiblio" type="button">Guardar biblioteca</button>
       </div>
-      <input type="search" id="buscar" class="input" placeholder="Buscar ejercicio…" autocomplete="off">
-      <div class="filtros" id="filtros"></div>
     </div>
-    <div class="biblio__list" id="biblioList"></div>
+    <div class="col__lista" id="biblioList"></div>
   </aside>
 
-  <!-- ============ RUTINA ============ -->
-  <section class="editor">
+  <!-- ---------- 2. DÍAS ---------- -->
+  <section class="col col--dias">
+    <header class="col__cabeza">
+      <h2>Días a la semana</h2>
+      <span class="col__nota" id="diaActivoNombre"></span>
+    </header>
 
-    <div class="card">
-      <h2 class="card__title">Datos del alumno</h2>
-      <div class="grid2">
-        <label class="field">
-          <span>Nombre del alumno</span>
-          <input class="input" id="fAlumno" placeholder="Juan Pérez" autocomplete="off">
-        </label>
-        <label class="field">
-          <span>Código de la rutina</span>
-          <div class="field__row">
-            <input class="input" id="fSlug" placeholder="r-7k2f-m3x8" autocomplete="off">
-            <button class="btn btn--mini" id="btnSlug" type="button" title="Generar otro código">↻</button>
+    <div class="col__lista">
+      <details class="ficha-alumno" id="fichaAlumno" open>
+        <summary>
+          <span class="ficha-alumno__quien" id="resumenAlumno">Datos del alumno</span>
+          <span class="ficha-alumno__flecha">▾</span>
+        </summary>
+        <div class="ficha-alumno__cuerpo">
+          <div class="grid2">
+            <label class="campo">
+              <span>Alumno</span>
+              <input class="input" id="fAlumno" placeholder="Juan Pérez" autocomplete="off">
+            </label>
+            <label class="campo">
+              <span>Código <small id="avisoCodigo"></small></span>
+              <div class="campo__fila">
+                <input class="input" id="fSlug" placeholder="r-7k2f-m3x8" autocomplete="off">
+                <button class="btn btn--mini" id="btnSlug" type="button" title="Generar otro código">↻</button>
+              </div>
+            </label>
+            <label class="campo">
+              <span>Objetivo</span>
+              <input class="input" id="fObjetivo" placeholder="Bajar grasa y ganar músculo" autocomplete="off">
+            </label>
+            <label class="campo">
+              <span>Paquete</span>
+              <input class="input" id="fPaquete" placeholder="Entrenamiento Personal" autocomplete="off">
+            </label>
+            <label class="campo">
+              <span>Vigencia</span>
+              <input class="input" id="fVigencia" placeholder="Noviembre – Enero" autocomplete="off">
+            </label>
+            <label class="campo">
+              <span>Actualizada</span>
+              <input class="input" id="fFecha" type="date">
+            </label>
           </div>
-        </label>
-        <label class="field">
-          <span>Objetivo</span>
-          <input class="input" id="fObjetivo" placeholder="Bajar grasa y ganar músculo" autocomplete="off">
-        </label>
-        <label class="field">
-          <span>Paquete</span>
-          <input class="input" id="fPaquete" placeholder="Entrenamiento Personal" autocomplete="off">
-        </label>
-        <label class="field">
-          <span>Vigencia</span>
-          <input class="input" id="fVigencia" placeholder="Octubre – Diciembre 2026" autocomplete="off">
-        </label>
-        <label class="field">
-          <span>Fecha de actualización</span>
-          <input class="input" id="fFecha" type="date">
-        </label>
-      </div>
-      <label class="field">
-        <span>Nota general para el alumno</span>
-        <textarea class="input" id="fNota" rows="2" placeholder="Calienta 8 minutos antes de cada sesión. Avísame si algo te molesta."></textarea>
-      </label>
+          <label class="campo">
+            <span>Nota general</span>
+            <textarea class="input" id="fNota" rows="2" placeholder="Calienta 8 minutos antes de cada sesión."></textarea>
+          </label>
+        </div>
+      </details>
+
+      <div id="dias"></div>
+
+      <button class="btn btn--punteado" id="btnDia" type="button">+ Añadir día</button>
     </div>
-
-    <div class="dias" id="dias"></div>
-
-    <button class="btn btn--dashed" id="btnDia" type="button">+ Agregar día</button>
-
-    <div class="card card--muted">
-      <h2 class="card__title">Link del alumno</h2>
-      <div class="candado">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
-          <rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>
-        </svg>
-        <p>La rutina se guarda <b>cifrada</b>. La clave viaja en la parte del link
-           que va después del <code>#</code> y nunca llega al servidor: sin el link
-           completo, nadie puede leerla.</p>
-      </div>
-      <div class="publicar__link">
-        <code id="linkFinal">—</code>
-        <button class="btn btn--mini" id="btnCopiarLink" type="button">Copiar</button>
-      </div>
-      <p class="hint aviso-clave">Copia el link <b>completo</b>, incluida la parte del <code>#</code>.
-         Sin ella la rutina no abre.</p>
-      <button class="btn btn--wa" id="btnWa" type="button">Copiar mensaje para WhatsApp</button>
-
-      <label class="field" style="margin-top:16px">
-        <span>Dirección de tu sitio</span>
-        <input class="input" id="fSitio" placeholder="https://x5-007.github.io/CreadorDeRutinas">
-      </label>
-    </div>
-
-    <p class="autosave">El borrador se guarda solo en este navegador.</p>
-    <button class="btn btn--danger-ghost" id="btnLimpiar" type="button">Vaciar y empezar de cero</button>
   </section>
+
+  <!-- ---------- 3. ACCIONES ---------- -->
+  <aside class="col col--rail">
+    <div class="rail__cuerpo">
+
+      <div class="rail__bloque">
+        <button class="btn btn--publicar" id="btnPublicar" type="button">
+          <span class="btn__titulo">Publicar</span>
+          <span class="btn__pie">y copiar el link del alumno</span>
+        </button>
+        <div class="rail__link" id="railLink" hidden>
+          <code id="linkFinal">—</code>
+          <button class="btn btn--mini" id="btnCopiarLink" type="button">Copiar</button>
+        </div>
+        <button class="btn btn--rail btn--wa" id="btnWa" type="button">Mensaje de WhatsApp</button>
+      </div>
+
+      <div class="rail__bloque">
+        <button class="btn btn--rail" id="btnImagenes" type="button">Imágenes para el alumno</button>
+        <button class="btn btn--rail" id="btnVista" type="button">Vista previa</button>
+      </div>
+
+      <div class="rail__bloque">
+        <button class="btn btn--rail" id="btnCargar" type="button">Cargar una rutina</button>
+        <button class="btn btn--rail" id="btnNueva" type="button">Rutina nueva</button>
+      </div>
+
+      <details class="rail__avanzado">
+        <summary>Sin conexión a GitHub</summary>
+        <button class="btn btn--rail" id="btnExportar" type="button">Descargar archivos</button>
+        <button class="btn btn--rail" id="btnImportar" type="button">Abrir respaldo</button>
+        <button class="btn btn--rail" id="btnImportarLink" type="button">Abrir desde link</button>
+      </details>
+
+      <p class="rail__pie">El borrador se guarda solo en este navegador.</p>
+    </div>
+  </aside>
 </main>
 
-<!-- ============ MODAL DE EXPORTACIÓN ============ -->
-<div class="modal" id="modal" hidden>
+<input type="file" id="fileImport" accept=".json,application/json" hidden>
+<input type="file" id="fileClip" accept="image/gif,video/mp4,video/webm,video/quicktime,image/webp" hidden>
+
+<!-- ===================== MODALES ===================== -->
+
+<!-- Conexión con GitHub -->
+<div class="modal" id="modalToken" hidden>
   <div class="modal__box">
-    <button class="modal__x" id="modalX" type="button" aria-label="Cerrar">✕</button>
-    <h2>Rutina cifrada y lista</h2>
-
-    <div class="modal__files">
-      <button class="btn btn--primary" id="btnFileHtml" type="button">Descargar index.html</button>
-      <button class="btn btn--ghost" id="btnFileJson" type="button">Descargar respaldo</button>
-    </div>
-
-    <p class="modal__sub"><b>index.html</b> es el único archivo que va a GitHub.
-       Dentro lleva la rutina cifrada.</p>
+    <button class="modal__x" data-cerrar="modalToken" type="button" aria-label="Cerrar">✕</button>
+    <h2>Conectar con GitHub</h2>
+    <p class="modal__sub">Con esto el armador publica las rutinas y sube los GIF solo,
+       sin que entres a github.com.</p>
 
     <ol class="pasos">
-      <li>En tu computadora crea una carpeta llamada <code id="mRuta"></code>
-          y mete dentro el <code>index.html</code> que acabas de descargar.</li>
-      <li>Entra a tu repositorio <b>CreadorDeRutinas</b> en github.com.</li>
-      <li><b>Add file → Upload files</b> y arrastra <b>la carpeta completa</b>
-          (no el archivo suelto: así GitHub respeta el nombre de la carpeta).</li>
-      <li><b>Commit changes</b>. En menos de un minuto el link funciona.</li>
+      <li>Abre <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">esta página de GitHub</a> (token de acceso personal, tipo <i>fine-grained</i>).</li>
+      <li>En <b>Repository access</b> elige <b>Only select repositories</b> y marca
+          <code id="tokRepo">CreadorDeRutinas</code>.</li>
+      <li>En <b>Permissions → Repository permissions</b>, pon <b>Contents</b> en
+          <b>Read and write</b>. No hace falta nada más.</li>
+      <li>En <b>Expiration</b> elige el plazo que quieras; cuando caduque, repites esto.</li>
+      <li>Pulsa <b>Generate token</b>, cópialo y pégalo aquí abajo.</li>
     </ol>
 
-    <div class="peligro">
-      <strong>El respaldo NO se sube a GitHub.</strong>
-      <p>El archivo <code id="mRespaldo"></code> tiene la clave sin cifrar. Guárdalo
-         en tu computadora: es lo que te deja volver a editar esta rutina.
-         Si lo subes al repositorio, el cifrado deja de servir de nada.</p>
+    <label class="campo">
+      <span>Token</span>
+      <input class="input" id="fToken" type="password" placeholder="github_pat_…" autocomplete="off">
+    </label>
+
+    <div class="modal__acciones">
+      <button class="btn btn--primary" id="btnGuardarToken" type="button">Conectar</button>
+      <button class="btn btn--fantasma" id="btnQuitarToken" type="button">Desconectar</button>
     </div>
 
-    <p class="hint">¿Perdiste el respaldo? Usa <b>«Abrir desde link»</b> y pega la URL
-       completa del alumno: de ahí se recupera la rutina para editarla.</p>
+    <div class="candado">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+        <rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/>
+      </svg>
+      <p>El token se guarda <b>solo en este navegador</b>, nunca en el repositorio.
+         Dale permiso únicamente a este repositorio: así, lo máximo que alguien
+         con acceso a tu computadora podría tocar son tus rutinas.</p>
+    </div>
   </div>
 </div>
 
-<!-- ============ MODAL: NUEVO EJERCICIO ============ -->
+<!-- Publicando -->
+<div class="modal" id="modalPublicar" hidden>
+  <div class="modal__box">
+    <button class="modal__x" data-cerrar="modalPublicar" type="button" aria-label="Cerrar">✕</button>
+    <h2 id="pubTitulo">Publicando…</h2>
+    <div class="progreso" id="pubProgreso"></div>
+    <div id="pubResultado"></div>
+  </div>
+</div>
+
+<!-- Cargar rutina -->
+<div class="modal" id="modalCargar" hidden>
+  <div class="modal__box">
+    <button class="modal__x" data-cerrar="modalCargar" type="button" aria-label="Cerrar">✕</button>
+    <h2>Tus rutinas</h2>
+    <p class="modal__sub">Las que has publicado desde este navegador. Elige una para editarla.</p>
+    <div class="lista-rutinas" id="listaRutinas"></div>
+  </div>
+</div>
+
+<!-- Nuevo ejercicio -->
 <div class="modal" id="modalEj" hidden>
   <div class="modal__box">
-    <button class="modal__x" id="modalEjX" type="button" aria-label="Cerrar">✕</button>
+    <button class="modal__x" data-cerrar="modalEj" type="button" aria-label="Cerrar">✕</button>
     <h2>Nuevo ejercicio</h2>
     <p class="modal__sub">Queda disponible en la biblioteca al instante.</p>
-
-    <label class="field">
+    <label class="campo">
       <span>Nombre del ejercicio</span>
       <input class="input" id="nvNombre" placeholder="Remo con barra" autocomplete="off">
     </label>
-
     <div class="grid2">
-      <label class="field">
+      <label class="campo">
         <span>Grupo muscular</span>
         <select class="input" id="nvGrupo"></select>
       </label>
-      <label class="field" id="nvGrupoOtroCampo" hidden>
+      <label class="campo" id="nvGrupoOtroCampo" hidden>
         <span>Nombre del grupo nuevo</span>
         <input class="input" id="nvGrupoOtro" placeholder="Antebrazo" autocomplete="off">
       </label>
     </div>
-
-    <label class="field">
-      <span>Archivo del clip <small>opcional</small></span>
-      <input class="input" id="nvClip" placeholder="remo-con-barra.mp4" autocomplete="off">
-    </label>
-
-    <div class="candado">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
-      </svg>
-      <p>El video no se sube desde aquí. Graba tu clip, nómbralo igual que
-         escribiste arriba y súbelo a la carpeta <code>rutinas/clips/</code>.
-         Mientras tanto el ejercicio funciona, solo que sin animación.</p>
-    </div>
-
-    <button class="btn btn--primary btn--bloque" id="nvGuardar" type="button" style="width:100%;margin-top:16px">
-      Agregar a la biblioteca
-    </button>
+    <p class="hint">El GIF se añade después, desde la miniatura del ejercicio en la lista.</p>
+    <button class="btn btn--primary btn--ancho" id="nvGuardar" type="button">Agregar a la biblioteca</button>
   </div>
 </div>
 
-<!-- ============ MODAL: GUARDAR BIBLIOTECA ============ -->
+<!-- Guardar biblioteca sin conexión -->
 <div class="modal" id="modalBib" hidden>
   <div class="modal__box">
-    <button class="modal__x" id="modalBibX" type="button" aria-label="Cerrar">✕</button>
-    <h2>Guardar tus ejercicios en el sitio</h2>
-    <p class="modal__sub">Así dejan de vivir solo en este navegador y los tienes
-       desde cualquier computadora.</p>
-
-    <div class="modal__files">
+    <button class="modal__x" data-cerrar="modalBib" type="button" aria-label="Cerrar">✕</button>
+    <h2>Guardar tus ejercicios</h2>
+    <p class="modal__sub">Descarga el archivo y reemplaza <code>ejercicios.js</code> en tu repositorio.</p>
+    <div class="modal__acciones">
       <button class="btn btn--primary" id="btnFileBib" type="button">Descargar ejercicios.js</button>
     </div>
-
     <ol class="pasos">
-      <li>Entra a tu repositorio <b>CreadorDeRutinas</b> en github.com.</li>
-      <li>Haz clic en el archivo <code>ejercicios.js</code> y luego en el <b>lápiz</b> (Edit).</li>
-      <li>Selecciona todo el contenido y bórralo.</li>
-      <li>Abre el <code>ejercicios.js</code> que descargaste con el Bloc de notas,
-          copia todo y pégalo ahí.</li>
+      <li>Abre <code>ejercicios.js</code> en github.com y pulsa el <b>lápiz</b>.</li>
+      <li>Selecciona todo, borra y pega el contenido del archivo descargado.</li>
       <li><b>Commit changes</b>.</li>
     </ol>
-
-    <p class="hint">Al recargar el armador, tus ejercicios ya vendrán del archivo
-       y la lista local se limpia sola. No se duplican.</p>
   </div>
 </div>
 
-<!-- ============ MODAL: IMÁGENES ============ -->
+<!-- Exportación manual -->
+<div class="modal" id="modal" hidden>
+  <div class="modal__box">
+    <button class="modal__x" data-cerrar="modal" type="button" aria-label="Cerrar">✕</button>
+    <h2>Archivos de la rutina</h2>
+    <div class="modal__acciones">
+      <button class="btn btn--primary" id="btnFileHtml" type="button">Descargar index.html</button>
+      <button class="btn btn--fantasma" id="btnFileJson" type="button">Descargar respaldo</button>
+    </div>
+    <ol class="pasos">
+      <li>Crea en tu computadora una carpeta llamada <code id="mRuta"></code> y mete dentro el <code>index.html</code>.</li>
+      <li>En github.com, <b>Add file → Upload files</b> y arrastra <b>la carpeta completa</b>.</li>
+      <li><b>Commit changes</b>.</li>
+    </ol>
+    <div class="peligro">
+      <strong>El respaldo NO se sube a GitHub.</strong>
+      <p>Lleva la clave sin cifrar. Guárdalo en tu computadora: es lo que te deja volver a editar la rutina.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Imágenes -->
 <div class="modal" id="modalImg" hidden>
   <div class="modal__box modal__box--ancho">
-    <button class="modal__x" id="modalImgX" type="button" aria-label="Cerrar">✕</button>
+    <button class="modal__x" data-cerrar="modalImg" type="button" aria-label="Cerrar">✕</button>
     <h2>Imágenes para compartir</h2>
-    <p class="modal__sub">Formato historia (1080 × 1920), listo para estados de
-       WhatsApp e Instagram. Los días largos se parten solos.</p>
-
-    <div class="img-acciones">
+    <p class="modal__sub">Formato historia (1080 × 1920). Los días largos se parten solos.</p>
+    <div class="modal__acciones">
       <button class="btn btn--primary" id="btnBajarTodas" type="button">Descargar todas</button>
       <span class="hint" id="imgCuenta"></span>
     </div>
-
     <div class="img-grid" id="imgGrid"></div>
-
-    <p class="hint">Las imágenes son una foto fija: si editas la rutina después,
-       vuelve a generarlas. El link del alumno sí se actualiza solo.</p>
   </div>
 </div>
 
 <div class="toast" id="toast" hidden></div>
 
 <script src="../coach.js"></script>
-<script src="../ejercicios.js?v=4"></script>
-<script src="../base/imagenes.js?v=4"></script>
-<script src="armador.js?v=4"></script>
+<script src="../ejercicios.js"></script>
+<script src="../base/publicador.js"></script>
+<script src="../base/imagenes.js"></script>
+<script src="armador.js"></script>
 </body>
 </html>

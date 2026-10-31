@@ -217,11 +217,17 @@
         </section>`;
     }
 
+    // Declarada como función para que esté disponible aunque se use antes.
+    function esAnimado(f) { return /\.(gif|webp|png|jpe?g)$/i.test(f || ''); }
+
     function tarjeta(ej, n) {
+      // Un GIF se anima solo con <img>; un MP4 necesita <video>.
       const media = ej.clip
-        ? `<video class="ej__video" muted loop playsinline preload="none" disablepictureinpicture
+        ? (esAnimado(ej.clip)
+            ? `<img src="../clips/${esc(ej.clip)}" alt="" loading="lazy">`
+            : `<video class="ej__video" muted loop playsinline preload="none" disablepictureinpicture
                   ${ej.poster ? `poster="../clips/${esc(ej.poster)}"` : ''}
-                  data-src="../clips/${esc(ej.clip)}"></video>`
+                  data-src="../clips/${esc(ej.clip)}"></video>`)
         : (ej.poster
             ? `<img src="../clips/${esc(ej.poster)}" alt="" loading="lazy">`
             : `<div class="ej__media--vacio" style="width:100%;height:100%">${ICONOS.pesa}</div>`);

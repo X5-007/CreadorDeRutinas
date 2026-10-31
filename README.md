@@ -97,6 +97,54 @@ Tres cosas que conviene tener claras:
 
 ---
 
+## Conectar con GitHub (hazlo una vez)
+
+Sin esto el armador funciona, pero tienes que descargar los archivos y subirlos
+a mano. Con esto publica solo.
+
+1. Pulsa el botón de arriba a la derecha, donde dice **Conectar GitHub**.
+2. Sigue los pasos: crea un token *fine-grained* con acceso **solo a este
+   repositorio** y permiso **Contents: Read and write**.
+3. Pégalo y listo.
+
+El token se guarda **solo en este navegador**, nunca en el repositorio. Como le
+diste acceso únicamente a este repositorio, lo máximo que alguien con tu
+computadora podría tocar son tus rutinas. Cuando caduque, generas otro.
+
+---
+
+## Publicar una rutina
+
+Botón **Publicar**. Hace tres cosas y te las va mostrando:
+
+1. Cifra la rutina.
+2. La sube al repositorio.
+3. Espera a que GitHub la publique.
+
+Cuando termina te da el link y un botón para copiar el mensaje de WhatsApp ya
+escrito. No tienes que entrar a github.com ni crear carpetas.
+
+Si editas una rutina y vuelves a publicar, **el link no cambia**: el alumno abre
+el mismo de siempre y ve lo nuevo.
+
+---
+
+## Añadir el GIF de un ejercicio
+
+Pulsa la **miniatura** del ejercicio en la columna de la izquierda y elige el
+archivo de tu computadora. Sirven **GIF, MP4 y WebM**.
+
+El armador lo sube al repositorio, le saca una portada automáticamente y
+actualiza la biblioteca. A partir de ahí ese ejercicio lleva su animación en
+todas las rutinas nuevas.
+
+Cuanto más ligero, mejor: el alumno los ve con datos móviles. Por debajo de
+1 MB es lo ideal; a partir de 3 MB te avisa y por encima de 8 MB no lo acepta.
+Un GIF pesa bastante más que un MP4 del mismo clip, así que si puedes elegir,
+usa MP4.
+
+---
+
 ## El respaldo
 
 Al exportar también puedes descargar `respaldo-r-7k2f-m3x8.json`. Ese archivo

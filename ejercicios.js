@@ -69,7 +69,7 @@ const EJERCICIOS = [
   { id: "patada-gluteo-polea", nombre: "Patada de glúteo en polea", grupo: "Glúteo", clip: "" },
   { id: "abductores-maquina", nombre: "Abductores en máquina", grupo: "Abductor y Aductor", clip: "abductores-maquina.gif", poster: "abductores-maquina.jpg" },
   { id: "aductor-maquina", nombre: "Aductor en máquina", grupo: "Abductor y Aductor", clip: "aductor-maquina.gif", poster: "aductor-maquina.jpg" },
-  { id: "pantorrilla-alta-maquina", nombre: "Pantorrilla alta en máquina", grupo: "Pantorrillas", clip: "" },
+  { id: "pantorrilla-alta-maquina", nombre: "Pantorrilla alta en máquina", grupo: "Pantorrillas", clip: "pantorrilla-alta-maquina.gif", poster: "pantorrilla-alta-maquina.jpg" },
   { id: "pantorrilla-baja-maquina", nombre: "Pantorrilla baja en máquina", grupo: "Pantorrillas", clip: "" },
   { id: "pantorrilla-alta-en-prensa", nombre: "Pantorrilla Alta en Prensa", grupo: "Pantorrillas", clip: "pantorrilla-alta-en-prensa.gif", poster: "pantorrilla-alta-en-prensa.jpg" },
   { id: "pantorrilla-parado", nombre: "Pantorrilla de pie", grupo: "Pantorrillas", clip: "" },

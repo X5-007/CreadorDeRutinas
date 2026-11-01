@@ -43,7 +43,7 @@ const EJERCICIOS = [
   { id: "press-militar-maquina", nombre: "Press militar en máquina", grupo: "Hombro", clip: "" },
   { id: "press-militar-smith", nombre: "Press militar en Smith", grupo: "Hombro", clip: "" },
   { id: "laterales-mancuernas", nombre: "Elevaciones laterales", grupo: "Hombro", clip: "" },
-  { id: "face-pull", nombre: "Face pull", grupo: "Hombro", clip: "" },
+  { id: "face-pull", nombre: "Face pull", grupo: "Hombro", clip: "face-pull.gif", poster: "face-pull.jpg" },
   { id: "jalon-katana", nombre: "Jalón katana", grupo: "Hombro", clip: "" },
   { id: "pajaro-posterior", nombre: "Pájaro para deltoide posterior", grupo: "Hombro", clip: "" },
   { id: "curl-biceps-mancuernas", nombre: "Curl de bíceps con mancuernas", grupo: "Bíceps", clip: "" },

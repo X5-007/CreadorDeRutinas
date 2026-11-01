@@ -35,7 +35,7 @@ const EJERCICIOS = [
   { id: "aperturas-polea", nombre: "Aperturas en polea", grupo: "Pecho", clip: "" },
   { id: "fondos-pecho", nombre: "Fondos para pecho", grupo: "Pecho", clip: "" },
   { id: "jalon-al-pecho", nombre: "Jalón al pecho", grupo: "Espalda", clip: "jalon-al-pecho.gif", poster: "jalon-al-pecho.jpg" },
-  { id: "remo-en-maquina", nombre: "Remo en máquina", grupo: "Espalda", clip: "" },
+  { id: "remo-en-maquina", nombre: "Remo en máquina", grupo: "Espalda", clip: "remo-en-maquina.gif", poster: "remo-en-maquina.jpg" },
   { id: "remo-sentado-polea", nombre: "Remo sentado en polea", grupo: "Espalda", clip: "" },
   { id: "remo-barra", nombre: "Remo con barra", grupo: "Espalda", clip: "" },
   { id: "dominadas", nombre: "Dominadas", grupo: "Espalda", clip: "" },

@@ -29,7 +29,7 @@ const GRUPOS = [
 
 const EJERCICIOS = [
   { id: "press-banca-maquina", nombre: "Press banca en máquina", grupo: "Pecho", clip: "press-banca-maquina.mp4", poster: "press-banca-maquina.jpg" },
-  { id: "press-en-maquina", nombre: "Press en máquina", grupo: "Pecho", clip: "" },
+  { id: "press-en-maquina", nombre: "Press en máquina", grupo: "Pecho", clip: "press-en-maquina.gif", poster: "press-en-maquina.jpg" },
   { id: "press-inclinado-maquina", nombre: "Press inclinado en máquina", grupo: "Pecho", clip: "" },
   { id: "press-banca-mancuernas", nombre: "Press banca con mancuernas", grupo: "Pecho", clip: "" },
   { id: "aperturas-polea", nombre: "Aperturas en polea", grupo: "Pecho", clip: "" },

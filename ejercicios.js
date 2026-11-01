@@ -22,8 +22,7 @@ const GRUPOS = [
   "Pierna",
   "Glúteo",
   "Core",
-  "Femoral",
-  "Aductor y Abductor",
+  "Pantorrillas",
 ];
 
 const EJERCICIOS = [
@@ -59,7 +58,5 @@ const EJERCICIOS = [
   { id: "plancha", nombre: "Plancha", grupo: "Core", clip: "" },
   { id: "crunch-polea", nombre: "Crunch en polea", grupo: "Core", clip: "" },
   { id: "elevacion-piernas", nombre: "Elevación de piernas colgado", grupo: "Core", clip: "" },
-  { id: "sentadilla-sumo", nombre: "Sentadilla Sumo", grupo: "Glúteo", clip: "" },
-  { id: "curl-femoral-acostado", nombre: "Curl Femoral Acostado", grupo: "Femoral", clip: "" },
-  { id: "abductores-en-maquina", nombre: "Abductores en Maquina", grupo: "Aductor y Abductor", clip: "" },
+  { id: "pantorilla-alta-en-prensa", nombre: "Pantorilla Alta en Prensa", grupo: "Pantorrillas", clip: "" },
 ];

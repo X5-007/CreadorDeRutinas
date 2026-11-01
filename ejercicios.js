@@ -46,7 +46,7 @@ const EJERCICIOS = [
   { id: "face-pull", nombre: "Face pull", grupo: "Hombro", clip: "face-pull.gif", poster: "face-pull.jpg" },
   { id: "jalon-katana", nombre: "Jalón katana", grupo: "Hombro", clip: "jalon-katana.gif", poster: "jalon-katana.jpg" },
   { id: "pajaro-posterior", nombre: "Pájaro para deltoide posterior", grupo: "Hombro", clip: "" },
-  { id: "curl-biceps-mancuernas", nombre: "Curl de bíceps con mancuernas", grupo: "Bíceps", clip: "" },
+  { id: "curl-biceps-mancuernas", nombre: "Curl de bíceps con mancuernas", grupo: "Bíceps", clip: "curl-biceps-mancuernas.gif", poster: "curl-biceps-mancuernas.jpg" },
   { id: "curl-martillo", nombre: "Curl martillo", grupo: "Bíceps", clip: "" },
   { id: "curl-barra-z", nombre: "Curl con barra Z", grupo: "Bíceps", clip: "" },
   { id: "curl-predicador", nombre: "Curl en banco predicador", grupo: "Bíceps", clip: "" },

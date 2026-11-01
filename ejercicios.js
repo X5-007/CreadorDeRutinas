@@ -67,7 +67,7 @@ const EJERCICIOS = [
   { id: "zancadas-mancuernas", nombre: "Zancadas", grupo: "Glúteo", clip: "" },
   { id: "hip-thrust", nombre: "Hip thrust", grupo: "Glúteo", clip: "" },
   { id: "patada-gluteo-polea", nombre: "Patada de glúteo en polea", grupo: "Glúteo", clip: "" },
-  { id: "abductores-maquina", nombre: "Abductores en máquina", grupo: "Abductor y Aductor", clip: "" },
+  { id: "abductores-maquina", nombre: "Abductores en máquina", grupo: "Abductor y Aductor", clip: "abductores-maquina.gif", poster: "abductores-maquina.jpg" },
   { id: "aductor-maquina", nombre: "Aductor en máquina", grupo: "Abductor y Aductor", clip: "" },
   { id: "pantorrilla-alta-maquina", nombre: "Pantorrilla alta en máquina", grupo: "Pantorrillas", clip: "" },
   { id: "pantorrilla-baja-maquina", nombre: "Pantorrilla baja en máquina", grupo: "Pantorrillas", clip: "" },

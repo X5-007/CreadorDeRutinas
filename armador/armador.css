@@ -616,3 +616,42 @@ textarea.input { resize: vertical; line-height: 1.5; }
 .tema .luna { display: none; }
 :root[data-tema="oscuro"] .tema .sol { display: none; }
 :root[data-tema="oscuro"] .tema .luna { display: block; }
+
+/* ---- Pegar rutina en texto --------------------------------------------- */
+.pegar { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 760px) { .pegar { grid-template-columns: 1fr; } }
+.pegar__lado { min-width: 0; display: flex; flex-direction: column; }
+.pegar__texto {
+  height: 300px; resize: vertical; line-height: 1.5;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .8rem;
+}
+.pegar__ayuda { margin-top: 9px; }
+.pegar__ayuda summary { cursor: pointer; font-size: .78rem; color: var(--texto-3); }
+.pegar__ayuda ul { margin: 9px 0 0; padding-left: 18px; font-size: .78rem; color: var(--texto-2); }
+.pegar__ayuda li { margin-bottom: 5px; }
+
+.pegar__vista {
+  height: 300px; overflow-y: auto; padding: 12px 14px;
+  background: var(--papel); border: 1px solid var(--linea); border-radius: var(--r-s);
+  font-size: .8rem;
+}
+.pv-dia { font-family: var(--f-display); font-weight: 600; font-size: .95rem;
+          margin: 12px 0 2px; color: var(--texto); }
+.pv-dia:first-child { margin-top: 0; }
+.pv-enfoque { font-size: .74rem; color: var(--texto-3); margin-bottom: 7px; }
+.pv-grupo { font-size: .64rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+            color: var(--bronce-txt); margin: 9px 0 4px; }
+.pv-ej { display: flex; justify-content: space-between; gap: 10px; padding: 2px 0; color: var(--texto-2); }
+.pv-ej b { font-weight: 500; color: var(--texto); }
+.pv-ej span { white-space: nowrap; font-variant-numeric: tabular-nums; font-size: .74rem; }
+.pv-nuevo {
+  display: inline-block; margin-left: 6px; padding: 0 5px; border-radius: var(--r-pill);
+  background: var(--oro-suave); border: 1px solid var(--oro-linea); color: var(--bronce-txt);
+  font-size: .55rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+}
+.pv-aviso { margin-top: 10px; padding: 8px 10px; border-radius: var(--r-s);
+            background: rgba(178,58,46,.08); border: 1px solid rgba(178,58,46,.26);
+            font-size: .74rem; color: var(--texto-2); }
+
+.pegar__opcion { display: flex; align-items: center; gap: 9px; margin-top: 14px; font-size: .84rem; }
+.pegar__opcion input { width: 16px; height: 16px; accent-color: var(--oro); }

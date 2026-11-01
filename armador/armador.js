@@ -1130,6 +1130,263 @@ ${todos.map(linea).join('\n')}
   });
 
   /* =====================================================================
+     PEGAR RUTINA EN TEXTO
+     =====================================================================
+     Lee la rutina tal como la escribe el coach:
+
+       Lunes                              <- el día
+       Glúteo / Cuádriceps / Abductor     <- el enfoque
+       --Gluteos                          <- el grupo muscular
+       Peso Muerto Rumano 4 8 - 12 3min   <- nombre, series, reps, descanso
+
+     Lo que va después de "#" se ignora, para que pueda dejar sus notas. */
+
+  const DIAS_SEMANA = [
+    ['lunes', 'Lunes'], ['martes', 'Martes'], ['miercoles', 'Miércoles'],
+    ['jueves', 'Jueves'], ['viernes', 'Viernes'], ['sabado', 'Sábado'],
+    ['domingo', 'Domingo'],
+  ];
+
+  const sinTildes = (t) => String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  const claveTxt = (t) => sinTildes(t).replace(/[^a-z0-9]+/g, ' ').trim();
+  /* Los grupos se comparan en singular: "Gluteos" encuentra "Glúteo". */
+  const claveGrupo = (t) => claveTxt(t).split(' ').map((p) => p.replace(/es$|s$/, '')).join(' ');
+  /* Y los nombres también, para que "Tricep" encuentre "Tríceps". */
+  const claveSing = (t) => claveTxt(t).split(' ')
+    .map((p) => (p.length > 3 ? p.replace(/es$|s$/, '') : p)).join(' ');
+
+  function resolverGrupo(txt) {
+    if (!txt) return '';
+    const g = claveGrupo(txt);
+    return gruposTodos().find((x) => claveGrupo(x) === g) || txt.trim();
+  }
+
+  /* Busca el ejercicio en la biblioteca. Primero por nombre exacto; si no,
+     por contenido, y solo cuando no haya duda de cuál es. */
+  function buscarEj(nombre, grupo) {
+    const k = claveTxt(nombre);
+    if (!k) return null;
+    const lista = biblioteca();
+    const exacto = lista.filter((e) => claveTxt(e.nombre) === k);
+    let cand = exacto;
+    if (!cand.length) {
+      const ks = claveSing(nombre);
+      cand = lista.filter((e) => claveSing(e.nombre) === ks);
+    }
+    if (!cand.length && k.length >= 5) {
+      cand = lista.filter((e) => {
+        const ke = claveTxt(e.nombre);
+        return ke.includes(k) || k.includes(ke);
+      });
+    }
+    if (cand.length > 1 && grupo) {
+      const g = claveGrupo(grupo);
+      const mismo = cand.filter((e) => claveGrupo(e.grupo) === g);
+      if (mismo.length) cand = mismo;
+    }
+    if (cand.length > 1 && !exacto.length) return null;  // ambiguo: mejor crearlo
+    return cand[0] || null;
+  }
+
+  const limpiaReps = (t) => String(t).replace(/\s*[-–—]\s*/g, '-').replace(/\s+/g, ' ').trim();
+
+  function limpiaDescanso(t) {
+    const m = String(t).trim().match(/^(\d+(?:[.,]\d+)?)\s*(.*)$/);
+    if (!m) return String(t).trim();
+    let u = sinTildes(m[2]).replace(/\./g, '').trim();
+    if (/^(min|minuto|minutos|m)$/.test(u)) u = 'min';
+    else if (/^(s|seg|segs|segundo|segundos)$/.test(u)) u = 's';
+    else if (!u) u = 's';
+    return `${m[1].replace(',', '.')} ${u}`;
+  }
+
+  /* Devuelve { nombre, series, reps, descanso } o null si la línea no es
+     un ejercicio con números. */
+  function leerLineaEj(l) {
+    const unidad = '(?:min|minutos?|mins?|m|s|segs?|segundos?)';
+    let m = l.match(new RegExp(`^(.*?)\\s+(\\d{1,2})\\s+(.+?)\\s+(\\d+(?:[.,]\\d+)?\\s*${unidad}\\.?)$`, 'i'));
+    if (m) return { nombre: m[1], series: m[2], reps: limpiaReps(m[3]), descanso: limpiaDescanso(m[4]) };
+
+    // nombre  series x reps  [descanso]
+    m = l.match(new RegExp(`^(.*?)\\s+(\\d{1,2})\\s*[x×]\\s*(\\d+(?:\\s*[-–a]\\s*\\d+)?)\\s*(?:[·/,]\\s*)?(\\d+(?:[.,]\\d+)?\\s*${unidad}\\.?)?$`, 'i'));
+    if (m) return { nombre: m[1], series: m[2], reps: limpiaReps(m[3]), descanso: m[4] ? limpiaDescanso(m[4]) : '60 s' };
+
+    // nombre  series  reps   (sin descanso)
+    m = l.match(/^(.*?)\s+(\d{1,2})\s+(\d+(?:\s*[-–a]\s*\d+)?)$/);
+    if (m) return { nombre: m[1], series: m[2], reps: limpiaReps(m[3]), descanso: '60 s' };
+
+    return null;
+  }
+
+  function leerPegado(texto) {
+    const dias = [];
+    const avisos = [];
+    let dia = null, grupoTxt = '', esperaEnfoque = false;
+    let hallados = 0, nuevos = 0;
+
+    const nuevoDia = (nombre) => {
+      dia = { nombre, enfoque: '', ejercicios: [] };
+      dias.push(dia);
+      grupoTxt = '';
+    };
+
+    String(texto).split(/\r?\n/).forEach((cruda) => {
+      const l = cruda.split('#')[0].replace(/\s+/g, ' ').trim();
+      if (!l) return;
+
+      // ¿Es un día?
+      const plano = sinTildes(l).replace(/[:.;,\-–—]+$/, '').trim();
+      const dw = DIAS_SEMANA.find(([k]) => plano === k || plano === 'dia ' + k);
+      if (dw || /^dia\s*\d+$/.test(plano)) {
+        nuevoDia(dw ? dw[1] : l.replace(/[:.;,]+$/, ''));
+        esperaEnfoque = true;
+        return;
+      }
+
+      // ¿Es un grupo muscular?
+      if (/^(-{2,}|[•·*])/.test(l)) {
+        grupoTxt = l.replace(/^(-{2,}|[•·*])\s*/, '').replace(/[:]+$/, '').trim();
+        esperaEnfoque = false;
+        return;
+      }
+
+      const datos = leerLineaEj(l);
+
+      // ¿Es la línea del enfoque? (justo debajo del día y sin números)
+      if (!datos && esperaEnfoque && dia) {
+        dia.enfoque = l.replace(/[:]+$/, '').trim();
+        esperaEnfoque = false;
+        return;
+      }
+      esperaEnfoque = false;
+
+      if (!dia) nuevoDia('Día 1');
+
+      const nombre = (datos ? datos.nombre : l).trim();
+      if (!nombre) return;
+      const grupo = resolverGrupo(grupoTxt);
+      const enBiblio = buscarEj(nombre, grupoTxt);
+      if (enBiblio) hallados++; else nuevos++;
+
+      dia.ejercicios.push({
+        id: enBiblio ? enBiblio.id : slugId(nombre) || slugId('ej ' + codigo(4)),
+        nombre: enBiblio ? enBiblio.nombre : nombre,
+        grupo: enBiblio ? enBiblio.grupo : (grupo || 'Sin grupo'),
+        clip: enBiblio ? (enBiblio.clip || '') : '',
+        poster: enBiblio ? (enBiblio.poster || '') : '',
+        series: datos ? datos.series : '3',
+        reps: datos ? datos.reps : '10-12',
+        descanso: datos ? datos.descanso : '60 s',
+        nota: '',
+        _nuevo: !enBiblio,
+        _sinNumeros: !datos,
+      });
+    });
+
+    dias.forEach((d) => {
+      if (!d.ejercicios.length) avisos.push(`${d.nombre} se quedó sin ejercicios.`);
+    });
+    if (!dias.length) avisos.push('No encontré ningún día. Empieza cada bloque con el nombre del día (Lunes, Martes…).');
+
+    return { dias, avisos, hallados, nuevos };
+  }
+
+  let pegadoActual = null;
+
+  function pintarPegado() {
+    const txt = $('#pegarTexto').value;
+    const vista = $('#pegarVista');
+    const resumen = $('#pegarResumen');
+    const btn = $('#btnAplicarPegado');
+
+    if (!txt.trim()) {
+      pegadoActual = null;
+      vista.innerHTML = '<p class="vacio">Pega el texto y aquí verás cómo queda.</p>';
+      resumen.textContent = '';
+      btn.disabled = true;
+      return;
+    }
+
+    const r = leerPegado(txt);
+    pegadoActual = r;
+
+    let html = '';
+    r.dias.forEach((d) => {
+      html += `<p class="pv-dia">${esc(d.nombre)}</p>`;
+      if (d.enfoque) html += `<p class="pv-enfoque">${esc(d.enfoque)}</p>`;
+      agrupar(d.ejercicios).forEach((b) => {
+        html += `<p class="pv-grupo">${esc(b.grupo || 'Sin grupo')}</p>`;
+        b.ejercicios.forEach((ej) => {
+          html += `<div class="pv-ej"><b>${esc(ej.nombre)}`
+            + (ej._nuevo ? '<i class="pv-nuevo">nuevo</i>' : '')
+            + `</b><span>${esc(ej.series)} × ${esc(ej.reps)} · ${esc(ej.descanso)}</span></div>`;
+        });
+      });
+    });
+    r.avisos.forEach((a) => { html += `<p class="pv-aviso">${esc(a)}</p>`; });
+    vista.innerHTML = html || '<p class="vacio">No entendí nada de ese texto.</p>';
+
+    const total = r.hallados + r.nuevos;
+    const partes = [];
+    partes.push(`${r.dias.length} ${r.dias.length === 1 ? 'día' : 'días'}`);
+    partes.push(`${total} ${total === 1 ? 'ejercicio' : 'ejercicios'}`);
+    if (r.nuevos) partes.push(`${r.nuevos} sin GIF todavía`);
+    resumen.textContent = total ? partes.join(' · ') : '';
+    btn.disabled = !total;
+  }
+
+  function aplicarPegado() {
+    const r = pegadoActual;
+    if (!r || !r.dias.length) return;
+
+    const yaHay = R.dias.reduce((n, d) => n + d.ejercicios.length, 0);
+    if (yaHay && !confirm(`Esto reemplaza lo que ya tienes armado (${R.dias.length} `
+      + `${R.dias.length === 1 ? 'día' : 'días'}, ${yaHay} ejercicios).\n¿Lo cambio por la rutina pegada?`)) return;
+
+    // Los ejercicios que no estaban en la biblioteca se guardan para poder
+    // reusarlos y subirles el GIF después.
+    let creados = 0;
+    if ($('#pegarCrear').checked) {
+      r.dias.forEach((d) => d.ejercicios.forEach((ej) => {
+        if (!ej._nuevo) return;
+        if (biblioteca().some((e) => e.id === ej.id)) return;
+        extras.push({ id: ej.id, nombre: ej.nombre, grupo: ej.grupo, clip: '', poster: '' });
+        creados++;
+      }));
+      if (creados) { guardarExtras(); pintarFiltros(); }
+    }
+
+    R.dias = r.dias.map((d) => ({
+      nombre: d.nombre,
+      enfoque: d.enfoque,
+      ejercicios: d.ejercicios.map((ej) => ({
+        id: ej.id, nombre: ej.nombre, grupo: ej.grupo,
+        clip: ej.clip, poster: ej.poster,
+        series: ej.series, reps: ej.reps, descanso: ej.descanso, nota: '',
+      })),
+    }));
+    diaActivo = 0;
+    guardar();
+    cerrar('modalPegar');
+    pintarTodo();
+    toast(creados
+      ? `Rutina montada. ${creados} ${creados === 1 ? 'ejercicio nuevo está' : 'ejercicios nuevos están'} en la biblioteca, súbeles su GIF.`
+      : 'Rutina montada. Revísala y publícala.');
+  }
+
+  $('#btnPegar').addEventListener('click', () => {
+    abrir('modalPegar');
+    pintarPegado();
+    $('#pegarTexto').focus();
+  });
+  let pegarT;
+  $('#pegarTexto').addEventListener('input', () => {
+    clearTimeout(pegarT);
+    pegarT = setTimeout(pintarPegado, 220);
+  });
+  $('#btnAplicarPegado').addEventListener('click', aplicarPegado);
+
+  /* =====================================================================
      ARRANQUE
      ===================================================================== */
   function pintarTodo() {

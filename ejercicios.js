@@ -62,7 +62,7 @@ const EJERCICIOS = [
   { id: "curl-femoral", nombre: "Curl femoral", grupo: "Femoral", clip: "" },
   { id: "peso-muerto-rumano", nombre: "Peso muerto rumano", grupo: "Glúteo", clip: "peso-muerto-rumano.webp", poster: "peso-muerto-rumano.jpg" },
   { id: "peso-muerto-piernas-rigidas", nombre: "Peso muerto piernas rígidas", grupo: "Glúteo", clip: "" },
-  { id: "sentadilla-sumo", nombre: "Sentadilla Sumo", grupo: "Glúteo", clip: "" },
+  { id: "sentadilla-sumo", nombre: "Sentadilla Sumo", grupo: "Glúteo", clip: "sentadilla-sumo.webp", poster: "sentadilla-sumo.jpg" },
   { id: "sentadilla-bulgara", nombre: "Sentadilla búlgara", grupo: "Glúteo", clip: "" },
   { id: "zancadas-mancuernas", nombre: "Zancadas", grupo: "Glúteo", clip: "" },
   { id: "hip-thrust", nombre: "Hip thrust", grupo: "Glúteo", clip: "" },

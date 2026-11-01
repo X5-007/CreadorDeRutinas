@@ -102,14 +102,22 @@ a { color: var(--bronce-txt); }
   grid-template-columns: 300px minmax(0, 1fr) 260px;
   gap: 1px;
   background: var(--linea);
-  min-height: calc(100vh - var(--alto-bar));
+  /* Alto exacto de la pantalla y sin scroll propio: así cada columna se
+     desplaza por separado en vez de arrastrar a toda la página. */
+  height: calc(100vh - var(--alto-bar));
+  height: calc(100dvh - var(--alto-bar));
+  overflow: hidden;
 }
 
-.col { display: flex; flex-direction: column; min-width: 0; background: var(--papel); }
-.col--rail { background: var(--tinta); }
+.col {
+  display: flex; flex-direction: column;
+  min-width: 0; min-height: 0;          /* deja que la lista de dentro encoja */
+  background: var(--papel);
+}
+.col--rail { background: var(--tinta); overflow-y: auto; }
 
 .col__cabeza {
-  position: sticky; top: var(--alto-bar); z-index: 20;
+  flex: none;
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
   padding: 16px 18px 12px;
   background: var(--papel);
@@ -119,17 +127,19 @@ a { color: var(--bronce-txt); }
 .col__nota { font-size: .74rem; color: var(--bronce-txt); font-weight: 600; }
 
 .col__filtros {
-  position: sticky; top: calc(var(--alto-bar) + 53px); z-index: 19;
+  flex: none;
   padding: 12px 14px; background: var(--papel); border-bottom: 1px solid var(--linea);
 }
-.col__lista { flex: 1; overflow-y: auto; padding: 14px; }
+.col__lista { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 14px; }
 .col--dias .col__lista { padding: 18px clamp(14px, 2vw, 26px) 60px; }
 
+/* En pantallas estrechas las columnas se apilan y vuelve el scroll normal */
 @media (max-width: 1100px) {
-  .taller { grid-template-columns: 1fr; }
+  .taller { grid-template-columns: 1fr; height: auto; overflow: visible; }
   .col { max-height: none; }
+  .col--rail { overflow: visible; }
   .col--biblio .col__lista { max-height: 380px; }
-  .col__cabeza, .col__filtros { position: static; }
+  .col--dias .col__lista { overflow: visible; }
 }
 
 /* -------------------------------------------------------------------------
@@ -162,7 +172,6 @@ a { color: var(--bronce-txt); }
    COLUMNA 3 — ACCIONES
    ------------------------------------------------------------------------- */
 .rail__cuerpo {
-  position: sticky; top: var(--alto-bar);
   padding: 18px 16px;
   display: flex; flex-direction: column; gap: 22px;
 }

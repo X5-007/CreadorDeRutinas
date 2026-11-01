@@ -23,6 +23,7 @@ const GRUPOS = [
   "Glúteo",
   "Core",
   "Pantorrilas",
+  "Femoral",
 ];
 
 const EJERCICIOS = [
@@ -59,4 +60,7 @@ const EJERCICIOS = [
   { id: "crunch-polea", nombre: "Crunch en polea", grupo: "Core", clip: "" },
   { id: "elevacion-piernas", nombre: "Elevación de piernas colgado", grupo: "Core", clip: "" },
   { id: "pantorrilla-alta-en-prensa", nombre: "Pantorrilla Alta en Prensa", grupo: "Pantorrilas", clip: "" },
+  { id: "triceps-copa", nombre: "Tríceps Copa", grupo: "Tríceps", clip: "" },
+  { id: "sentadilla-sumo", nombre: "Sentadilla Sumo", grupo: "Femoral", clip: "" },
+  { id: "pantorrilla-en-prensa", nombre: "Pantorrilla en Prensa", grupo: "Pantorrilas", clip: "" },
 ];

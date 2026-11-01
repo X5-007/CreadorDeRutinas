@@ -222,13 +222,17 @@
   /* =====================================================================
      COLUMNA 2 — DÍAS
      ===================================================================== */
+  /* Agrupa solo los ejercicios que van SEGUIDOS del mismo grupo muscular.
+     Así mandas tú el orden: dos de cuádriceps, uno de glúteo y otro de
+     cuádriceps salen como tres bloques, en ese mismo orden. */
   function agrupar(ejercicios) {
-    const orden = [], mapa = new Map();
+    const bloques = [];
     ejercicios.forEach((ej) => {
-      if (!mapa.has(ej.grupo)) { mapa.set(ej.grupo, []); orden.push(ej.grupo); }
-      mapa.get(ej.grupo).push(ej);
+      const ultimo = bloques[bloques.length - 1];
+      if (ultimo && ultimo.grupo === ej.grupo) ultimo.ejercicios.push(ej);
+      else bloques.push({ grupo: ej.grupo, ejercicios: [ej] });
     });
-    return orden.map((g) => ({ grupo: g, ejercicios: mapa.get(g) }));
+    return bloques;
   }
 
   function contador(di, ei, campo, etiqueta, clase) {
@@ -910,11 +914,11 @@ ${todos.map(linea).join('\n')}
       pintarDias(); pintarBiblio(); guardar(); return;
     }
     if (movE) {
+      // Se mueve por todo el día, cruzando grupos musculares si hace falta
       const [di, ei] = movE.dataset.moverEj.split(':').map(Number);
-      const lista = R.dias[di].ejercicios, ej = lista[ei];
-      const mismos = lista.map((x, k) => (x.grupo === ej.grupo ? k : -1)).filter((k) => k >= 0);
-      const destino = mismos[mismos.indexOf(ei) + Number(movE.dataset.dir)];
-      if (destino === undefined) return;
+      const lista = R.dias[di].ejercicios;
+      const destino = ei + Number(movE.dataset.dir);
+      if (destino < 0 || destino >= lista.length) return;
       [lista[ei], lista[destino]] = [lista[destino], lista[ei]];
       pintarDias(); guardar(); return;
     }

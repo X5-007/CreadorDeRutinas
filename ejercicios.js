@@ -54,7 +54,7 @@ const EJERCICIOS = [
   { id: "triceps-copa", nombre: "Tríceps Copa", grupo: "Tríceps", clip: "" },
   { id: "press-frances", nombre: "Press francés", grupo: "Tríceps", clip: "" },
   { id: "fondos-banca", nombre: "Fondos en banca", grupo: "Tríceps", clip: "" },
-  { id: "sentadilla-smith", nombre: "Sentadilla en Smith", grupo: "Cuádriceps", clip: "sentadilla-smith.gif", poster: "sentadilla-smith.jpg" },
+  { id: "sentadilla-smith", nombre: "Sentadilla en Smith", grupo: "Cuádriceps", clip: "sentadilla-smith.webp", poster: "sentadilla-smith.jpg" },
   { id: "prensa-piernas", nombre: "Prensa de piernas", grupo: "Cuádriceps", clip: "" },
   { id: "extension-cuadriceps", nombre: "Extensiones de cuádriceps", grupo: "Cuádriceps", clip: "extension-cuadriceps.gif", poster: "extension-cuadriceps.jpg" },
   { id: "curl-femoral-acostado", nombre: "Curl femoral acostado", grupo: "Femoral", clip: "curl-femoral-acostado.gif", poster: "curl-femoral-acostado.jpg" },

@@ -73,7 +73,7 @@ const EJERCICIOS = [
   { id: "pantorrilla-baja-maquina", nombre: "Pantorrilla baja en máquina", grupo: "Pantorrillas", clip: "" },
   { id: "pantorrilla-alta-en-prensa", nombre: "Pantorrilla Alta en Prensa", grupo: "Pantorrillas", clip: "pantorrilla-alta-en-prensa.gif", poster: "pantorrilla-alta-en-prensa.jpg" },
   { id: "pantorrilla-parado", nombre: "Pantorrilla de pie", grupo: "Pantorrillas", clip: "" },
-  { id: "crunch-maquina", nombre: "Crunch en máquina", grupo: "Abdomen", clip: "" },
+  { id: "crunch-maquina", nombre: "Crunch en máquina", grupo: "Abdomen", clip: "crunch-maquina.gif", poster: "crunch-maquina.jpg" },
   { id: "crunch-polea", nombre: "Crunch en polea", grupo: "Abdomen", clip: "" },
   { id: "plancha", nombre: "Plancha", grupo: "Abdomen", clip: "" },
   { id: "elevacion-piernas", nombre: "Elevación de piernas colgado", grupo: "Abdomen", clip: "" },

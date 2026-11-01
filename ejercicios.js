@@ -58,7 +58,7 @@ const EJERCICIOS = [
   { id: "prensa-piernas", nombre: "Prensa de piernas", grupo: "Cuádriceps", clip: "prensa-piernas.gif", poster: "prensa-piernas.jpg" },
   { id: "extension-cuadriceps", nombre: "Extensiones de cuádriceps", grupo: "Cuádriceps", clip: "extension-cuadriceps.gif", poster: "extension-cuadriceps.jpg" },
   { id: "curl-femoral-acostado", nombre: "Curl femoral acostado", grupo: "Femoral", clip: "curl-femoral-acostado.gif", poster: "curl-femoral-acostado.jpg" },
-  { id: "curl-femoral-sentado", nombre: "Curl femoral sentado", grupo: "Femoral", clip: "" },
+  { id: "curl-femoral-sentado", nombre: "Curl femoral sentado", grupo: "Femoral", clip: "curl-femoral-sentado.gif", poster: "curl-femoral-sentado.jpg" },
   { id: "curl-femoral", nombre: "Curl femoral", grupo: "Femoral", clip: "curl-femoral.gif", poster: "curl-femoral.jpg" },
   { id: "peso-muerto-rumano", nombre: "Peso muerto rumano", grupo: "Glúteo", clip: "peso-muerto-rumano.webp", poster: "peso-muerto-rumano.jpg" },
   { id: "peso-muerto-piernas-rigidas", nombre: "Peso muerto piernas rígidas", grupo: "Glúteo", clip: "" },

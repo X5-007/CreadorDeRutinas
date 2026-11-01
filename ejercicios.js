@@ -40,7 +40,7 @@ const EJERCICIOS = [
   { id: "remo-barra", nombre: "Remo con barra", grupo: "Espalda", clip: "" },
   { id: "dominadas", nombre: "Dominadas", grupo: "Espalda", clip: "" },
   { id: "pullover-polea", nombre: "Pullover en polea", grupo: "Espalda", clip: "" },
-  { id: "press-militar-maquina", nombre: "Press militar en máquina", grupo: "Hombro", clip: "" },
+  { id: "press-militar-maquina", nombre: "Press militar en máquina", grupo: "Hombro", clip: "press-militar-maquina.gif", poster: "press-militar-maquina.jpg" },
   { id: "press-militar-smith", nombre: "Press militar en Smith", grupo: "Hombro", clip: "" },
   { id: "laterales-mancuernas", nombre: "Elevaciones laterales", grupo: "Hombro", clip: "" },
   { id: "face-pull", nombre: "Face pull", grupo: "Hombro", clip: "face-pull.gif", poster: "face-pull.jpg" },

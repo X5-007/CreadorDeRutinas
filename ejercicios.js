@@ -63,7 +63,7 @@ const EJERCICIOS = [
   { id: "peso-muerto-rumano", nombre: "Peso muerto rumano", grupo: "Glúteo", clip: "peso-muerto-rumano.gif", poster: "peso-muerto-rumano.jpg" },
   { id: "peso-muerto-piernas-rigidas", nombre: "Peso muerto piernas rígidas", grupo: "Glúteo", clip: "peso-muerto-piernas-rigidas.gif", poster: "peso-muerto-piernas-rigidas.jpg" },
   { id: "sentadilla-sumo", nombre: "Sentadilla Sumo", grupo: "Glúteo", clip: "sentadilla-sumo.webp", poster: "sentadilla-sumo.jpg" },
-  { id: "sentadilla-bulgara", nombre: "Sentadilla búlgara", grupo: "Glúteo", clip: "" },
+  { id: "sentadilla-bulgara", nombre: "Sentadilla búlgara", grupo: "Glúteo", clip: "sentadilla-bulgara.gif", poster: "sentadilla-bulgara.jpg" },
   { id: "zancadas-mancuernas", nombre: "Zancadas", grupo: "Glúteo", clip: "zancadas-mancuernas.gif", poster: "zancadas-mancuernas.jpg" },
   { id: "hip-thrust", nombre: "Hip thrust", grupo: "Glúteo", clip: "" },
   { id: "patada-gluteo-polea", nombre: "Patada de glúteo en polea", grupo: "Glúteo", clip: "" },

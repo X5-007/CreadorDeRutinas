@@ -358,9 +358,23 @@
     };
   }
 
-  function plantilla(sobre, extraHead) {
-    const url = `${base()}/${R.slug}/`;
-    const pila = nombrePila();
+  /* El WhatsApp del coach va sin cifrar SOLO en las páginas pausadas, para
+     que la alumna tenga a quién escribirle sin poder leer la rutina. */
+  function waCoach() {
+    const num = String(COACH.whatsapp || '').replace(/\D/g, '');
+    if (!num) return '';
+    const txt = `Hola ${COACH.nombre}, quiero reactivar mi rutina.`;
+    return `https://wa.me/${COACH.lada || '52'}${num}?text=${encodeURIComponent(txt)}`;
+  }
+
+  /* ctx permite generar la página de una rutina que no es la del editor
+     (por ejemplo al pausar una del llavero). Sin ctx usa la actual. */
+  function plantilla(sobre, extraHead, ctx) {
+    const c = Object.assign(
+      { sitio: base(), slug: R.slug, alumno: R.alumno, estado: 'activa' }, ctx || {});
+    const raiz = String(c.sitio || SITIO_DEF).replace(/\/+$/, '');
+    const url = `${raiz}/${c.slug}/`;
+    const pila = String(c.alumno || '').trim().split(/\s+/)[0] || '';
     const titulo = pila ? `Rutina de ${pila} — ${COACH.nombre}` : `Tu rutina — ${COACH.nombre}`;
     const desc = 'Tu plan día por día, con video de cada ejercicio. Ábrelo desde el link que te mandaron.';
     const json = JSON.stringify(sobre).replace(/</g, '\\u003c');
@@ -381,13 +395,13 @@
 <meta property="og:title" content="${esc(titulo)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${esc(url)}">
-<meta property="og:image" content="${esc(base())}/og.jpg">
+<meta property="og:image" content="${esc(raiz)}/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(titulo)}">
 <meta name="twitter:description" content="${esc(desc)}">
-<meta name="twitter:image" content="${esc(base())}/og.jpg">
+<meta name="twitter:image" content="${esc(raiz)}/og.jpg">
 ${extraHead || ''}
 <link rel="icon" href="../img/perfil.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -395,7 +409,7 @@ ${extraHead || ''}
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../base/rutina.css">
 </head>
-<body>
+<body${c.estado === 'pausada' ? ` data-estado="pausada" data-wa="${esc(waCoach())}"` : ''}>
 
 <header class="barra" id="barra">
   <div class="caja barra__interior">
@@ -583,6 +597,14 @@ ${todos.map(linea).join('\n')}
   async function publicar() {
     if (!(await validar())) return;
 
+    // Publicar encima de una rutina pausada la volvería a dejar visible sin
+    // avisar. Mejor preguntarlo.
+    const enLlavero = llavero.find((x) => x.slug === R.slug);
+    if (enLlavero && enLlavero.estado === 'pausada'
+      && !confirm(`La rutina de ${R.alumno || R.slug} está en pausa.\n\n`
+        + `Si la publicas ahora vuelve a quedar visible, con el link que tienes aquí.\n\n`
+        + `¿Publicar y reactivarla?`)) return;
+
     if (!Publicador.hayToken()) {
       toast('Primero conecta GitHub con el botón de arriba a la derecha');
       abrir('modalToken');
@@ -651,7 +673,8 @@ ${todos.map(linea).join('\n')}
 
   function recordarEnLlavero() {
     const i = llavero.findIndex((x) => x.slug === R.slug);
-    const entrada = { slug: R.slug, clave: R.clave, alumno: R.alumno, fecha: R.actualizado, sitio: R.sitio };
+    const entrada = { slug: R.slug, clave: R.clave, alumno: R.alumno,
+                      fecha: R.actualizado, sitio: R.sitio, estado: 'activa' };
     if (i >= 0) llavero[i] = entrada; else llavero.unshift(entrada);
     llavero = llavero.slice(0, 60);
     guardarLlavero();
@@ -666,14 +689,22 @@ ${todos.map(linea).join('\n')}
         + 'Puedes abrir una con «Abrir desde link» o «Abrir respaldo».</p>';
       return;
     }
-    $('#listaRutinas').innerHTML = llavero.map((x, i) => `
-      <button class="rut-item" data-abrir="${i}" type="button">
-        <span class="rut-item__txt">
-          <b>${esc(x.alumno || x.slug)}</b>
+    $('#listaRutinas').innerHTML = llavero.map((x, i) => {
+      const pausada = x.estado === 'pausada';
+      return `
+      <div class="rut-item${pausada ? ' rut-item--pausada' : ''}">
+        <button class="rut-item__txt" data-abrir="${i}" type="button">
+          <b>${esc(x.alumno || x.slug)}${pausada ? '<i class="rut-sello">en pausa</i>' : ''}</b>
           <span>${esc(x.slug)} · ${esc(fechaLarga(x.fecha))}</span>
-        </span>
-        <span class="ejb__mas">→</span>
-      </button>`).join('');
+        </button>
+        <div class="rut-acc">
+          ${pausada
+            ? `<button class="rut-btn" data-reactivar="${i}" type="button">Reactivar</button>`
+            : `<button class="rut-btn" data-pausar="${i}" type="button">Pausar acceso</button>`}
+          <button class="mini-btn mini-btn--del" data-borrarpub="${i}" title="Borrar del servidor" type="button">✕</button>
+        </div>
+      </div>`;
+    }).join('');
   }
 
   async function abrirDelLlavero(i) {
@@ -728,6 +759,152 @@ ${todos.map(linea).join('\n')}
     guardar();
   }
 
+
+  /* =====================================================================
+     ACCESO DEL ALUMNO
+     =====================================================================
+     Pausar = volver a cifrar la rutina con una clave nueva y dejar en su
+     lugar un aviso. El link que ya tiene la alumna deja de servir al
+     instante, y también cualquier copia que haya reenviado. La rutina no
+     se pierde: sigue en el servidor, cifrada con la clave nueva, y al
+     reactivarla se le manda un link nuevo.
+
+     Borrar = quitar la carpeta del repositorio. El link da 404 y no hay
+     vuelta atrás. */
+
+  const raizDe = (x) => String(x.sitio || SITIO_DEF).replace(/\/+$/, '');
+
+  function listoParaPublicar() {
+    if (!hayCripto()) { toast('Ábrelo desde tu sitio con https'); return false; }
+    if (!Publicador.hayToken()) {
+      toast('Primero conecta GitHub con el botón de arriba a la derecha');
+      abrir('modalToken');
+      return false;
+    }
+    return true;
+  }
+
+  /* Lee la rutina que está publicada sin tocar el editor.
+     Prueba con la clave actual y, si no abre, con la anterior: así un corte
+     de luz a medio pausar nunca deja la rutina sin forma de abrirse. */
+  async function leerPublicada(x) {
+    const resp = await fetch(`${raizDe(x)}/${x.slug}/index.html?t=${Date.now()}`, { cache: 'no-store' });
+    if (!resp.ok) throw new Error(`Esa rutina ya no está en línea (error ${resp.status}).`);
+    const html = await resp.text();
+    const m = html.match(/<script type="application\/json" id="datos">([\s\S]*?)<\/script>/);
+    if (!m) throw new Error('Esa página no trae los datos de la rutina.');
+    const sobre = JSON.parse(m[1]);
+    for (const k of [x.clave, x.clavePrevia]) {
+      if (!k) continue;
+      try { return await descifrar(sobre, k); } catch (e) {}
+    }
+    throw new Error('No se pudo descifrar esa rutina con las claves guardadas.');
+  }
+
+  /* GitHub Pages tarda en republicar. Esto confirma que el cambio ya está
+     en línea de verdad antes de decirle al coach que quedó hecho. */
+  async function esperarEstado(x, pausada, msMax) {
+    const fin = Date.now() + (msMax || 120000);
+    const url = `${raizDe(x)}/${x.slug}/index.html`;
+    while (Date.now() < fin) {
+      try {
+        const r = await fetch(url + '?t=' + Date.now(), { cache: 'no-store' });
+        if (r.ok) {
+          const tiene = /data-estado="pausada"/.test(await r.text());
+          if (tiene === pausada) return true;
+        }
+      } catch (e) {}
+      await new Promise((res) => setTimeout(res, 3000));
+    }
+    return false;
+  }
+
+  async function cambiarAcceso(i, aEstado) {
+    const x = llavero[i];
+    if (!x || !listoParaPublicar()) return;
+    const quien = x.alumno || x.slug;
+    const pausar = aEstado === 'pausada';
+
+    const ok = pausar
+      ? confirm(`Pausar el acceso de ${quien}.\n\n`
+        + `El link que ya tiene deja de funcionar al instante, y también cualquier copia que haya reenviado. `
+        + `En su lugar verá un aviso para escribirte por WhatsApp.\n\n`
+        + `La rutina NO se borra. Al reactivarla le mandas un link nuevo.\n\n¿La pauso?`)
+      : confirm(`Reactivar el acceso de ${quien}.\n\n`
+        + `Se genera un link nuevo y te lo copio para WhatsApp. El link viejo seguirá muerto.\n\n¿La reactivo?`);
+    if (!ok) return;
+
+    const btns = $$('#listaRutinas button');
+    btns.forEach((b) => { b.disabled = true; });
+    toast(pausar ? `Pausando a ${quien}…` : `Reactivando a ${quien}…`);
+
+    try {
+      const datos = await leerPublicada(x);
+      const claveNueva = await nuevaClave();
+      const sobre = await cifrar(datos, claveNueva);
+      const html = plantilla(sobre, '', {
+        sitio: raizDe(x), slug: x.slug, alumno: x.alumno, estado: aEstado,
+      });
+
+      // La clave nueva se guarda ANTES de subir, conservando la anterior.
+      // Pase lo que pase a media subida, siempre queda una clave que abre
+      // lo que esté en el servidor.
+      llavero[i] = Object.assign({}, x, { clave: claveNueva, clavePrevia: x.clave });
+      guardarLlavero();
+
+      await Publicador.subir(`${x.slug}/index.html`, Publicador.textoABase64(html),
+        `${pausar ? 'Pausar' : 'Reactivar'} el acceso de ${quien}`);
+
+      llavero[i] = Object.assign({}, llavero[i], { estado: aEstado });
+      guardarLlavero();
+      if (R.slug === x.slug) { R.clave = claveNueva; guardar(); pintarLink(); }
+      pintarListaRutinas();
+
+      toast(pausar ? 'Esperando a que GitHub lo publique…' : 'Esperando a GitHub…');
+      const enLinea = await esperarEstado(llavero[i], pausar, 120000);
+
+      if (pausar) {
+        toast(enLinea
+          ? `Acceso de ${quien} pausado. Su link anterior ya no sirve.`
+          : `Pausa subida. GitHub está tardando; en unos minutos su link dejará de servir.`);
+      } else {
+        const link = `${raizDe(x)}/${x.slug}/#k=${claveNueva}`;
+        copiar(textoWa(x.alumno, link), `${quien} reactivada. Mensaje copiado para WhatsApp.`);
+      }
+    } catch (e) {
+      console.error('[Acceso]', e);
+      alert(`No se pudo ${pausar ? 'pausar' : 'reactivar'}:\n\n${e.message || e}`);
+    } finally {
+      pintarListaRutinas();
+    }
+  }
+
+  async function borrarPublicada(i) {
+    const x = llavero[i];
+    if (!x || !listoParaPublicar()) return;
+    const quien = x.alumno || x.slug;
+
+    if (!confirm(`Borrar del servidor la rutina de ${quien}.\n\n`
+      + `Esto NO se puede deshacer: el link dará error 404 y la rutina se pierde `
+      + `si no tienes respaldo.\n\nSi solo quieres cortarle el acceso, usa «Pausar acceso».\n\n¿Sigo?`)) return;
+    if ((prompt(`Para confirmar, escribe BORRAR`) || '').trim().toUpperCase() !== 'BORRAR') {
+      toast('Cancelado, no se borró nada');
+      return;
+    }
+
+    toast(`Borrando la rutina de ${quien}…`);
+    try {
+      await Publicador.borrar(`${x.slug}/index.html`, `Eliminar la rutina de ${quien}`);
+      llavero.splice(i, 1);
+      guardarLlavero();
+      pintarListaRutinas();
+      toast(`Rutina de ${quien} borrada. Su link ya da 404.`);
+    } catch (e) {
+      console.error('[Borrar]', e);
+      alert(`No se pudo borrar:\n\n${e.message || e}`);
+    }
+  }
+
   /* =====================================================================
      VALIDAR, VISTA PREVIA, DESCARGAS
      ===================================================================== */
@@ -765,12 +942,14 @@ ${todos.map(linea).join('\n')}
     try { await navigator.clipboard.writeText(texto); toast(ok); }
     catch (e) { prompt('Copia este texto:', texto); }
   }
+  function textoWa(alumno, link) {
+    const pila = String(alumno || '').trim().split(/\s+/)[0] || 'crack';
+    return `Hola ${pila}, aquí está tu rutina 💪\n`
+      + `Está dividida por días y cada ejercicio trae su video.\n\n${link}\n\n`
+      + `Ábrela tocando el link completo. Cualquier duda me escribes.`;
+  }
   function copiarMensajeWa() {
-    const pila = nombrePila() || 'crack';
-    copiar(`Hola ${pila}, aquí está tu rutina 💪\n`
-      + `Está dividida por días y cada ejercicio trae su video.\n\n${urlRutina()}\n\n`
-      + `Ábrela tocando el link completo. Cualquier duda me escribes.`,
-      'Mensaje copiado, pégalo en WhatsApp');
+    copiar(textoWa(R.alumno, urlRutina()), 'Mensaje copiado, pégalo en WhatsApp');
   }
 
   const pintarLink = () => {
@@ -957,6 +1136,12 @@ ${todos.map(linea).join('\n')}
   });
   $('#btnCargar').addEventListener('click', () => { pintarListaRutinas(); abrir('modalCargar'); });
   $('#listaRutinas').addEventListener('click', (e) => {
+    const pausar = e.target.closest('[data-pausar]');
+    if (pausar) { cambiarAcceso(+pausar.dataset.pausar, 'pausada'); return; }
+    const react = e.target.closest('[data-reactivar]');
+    if (react) { cambiarAcceso(+react.dataset.reactivar, 'activa'); return; }
+    const del = e.target.closest('[data-borrarpub]');
+    if (del) { borrarPublicada(+del.dataset.borrarpub); return; }
     const b = e.target.closest('[data-abrir]');
     if (b) abrirDelLlavero(+b.dataset.abrir);
   });

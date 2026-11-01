@@ -498,10 +498,30 @@ textarea.input { resize: vertical; line-height: 1.5; }
   background: var(--papel); font: inherit; text-align: left; cursor: pointer;
   transition: border-color .15s var(--suave), background .15s var(--suave);
 }
-.rut-item:hover { border-color: var(--oro); background: var(--oro-suave); }
-.rut-item__txt { flex: 1; min-width: 0; }
+.rut-item:hover { border-color: var(--oro); }
+.rut-item__txt { flex: 1; min-width: 0; padding: 0; border: 0; background: none;
+                 font: inherit; color: inherit; text-align: left; cursor: pointer; }
 .rut-item__txt b { display: block; font-size: .92rem; font-weight: 600; }
 .rut-item__txt span { font-size: .74rem; color: var(--texto-3); }
+.rut-item--pausada { opacity: .72; }
+.rut-item--pausada .rut-item__txt b { color: var(--texto-2); }
+.rut-sello {
+  display: inline-block; margin-left: 7px; padding: 1px 7px; border-radius: var(--r-pill);
+  background: rgba(178,58,46,.12); border: 1px solid rgba(178,58,46,.32);
+  color: var(--arcilla, #b23a2e);
+  font-size: .58rem; font-style: normal; font-weight: 600;
+  letter-spacing: .07em; text-transform: uppercase; vertical-align: middle;
+}
+.rut-acc { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
+.rut-btn {
+  padding: 6px 12px; white-space: nowrap; cursor: pointer;
+  border: 1px solid var(--linea-2); background: var(--tarjeta);
+  border-radius: var(--r-s); font: inherit; font-size: .76rem; font-weight: 500;
+  color: var(--texto-2); transition: all .15s var(--suave);
+}
+.rut-btn:hover { border-color: var(--texto); color: var(--texto); }
+.rut-item--pausada .rut-btn { border-color: var(--oro-linea); color: var(--bronce-txt); }
+.rut-item--pausada .rut-btn:hover { border-color: var(--oro); background: var(--oro-suave); }
 
 /* Imágenes */
 .img-grid {

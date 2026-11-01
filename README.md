@@ -170,6 +170,44 @@ mismo**. No tienes que mandarle nada nuevo.
 
 ---
 
+## Cortarle el acceso a un alumno que deja de pagar
+
+En **Cargar una rutina** cada alumno tiene sus botones.
+
+### Pausar acceso (lo normal)
+
+Vuelve a cifrar la rutina con una clave nueva y deja en su lugar un aviso.
+
+- El link que ya tiene **deja de abrir la rutina**, y también cualquier copia
+  que haya reenviado a sus amigas.
+- En vez de la rutina ve: *«Tu acceso está en pausa»*, con un botón para
+  escribirte por WhatsApp.
+- La rutina **no se borra**: sigue en el servidor, cifrada con la clave nueva
+  que solo tú tienes.
+
+### Reactivar
+
+Vuelve a dejarla visible y **te copia el mensaje de WhatsApp con su link
+nuevo**, listo para pegárselo. El link viejo se queda muerto para siempre,
+así que las copias que haya repartido no reviven.
+
+### Borrar (el botón ✕)
+
+Quita la carpeta del repositorio. El link queda en error 404 y **no hay vuelta
+atrás**: si no tienes respaldo, la rutina se pierde. Te pide escribir `BORRAR`
+para confirmar. Úsalo solo cuando ya no quieras conservar nada de ese alumno.
+
+### Lo que no se puede quitar
+
+Si la alumna descargó las imágenes, hizo capturas o guardó la página antes de
+la pausa, eso ya está en su teléfono y no hay forma de borrárselo. Lo que se
+corta es el acceso a la página y a cualquier actualización futura.
+
+GitHub tarda alrededor de un minuto en republicar: el armador espera y te
+avisa cuando el corte ya está en línea de verdad.
+
+---
+
 ## Agregar ejercicios a la biblioteca
 
 ### Desde el armador (lo normal)

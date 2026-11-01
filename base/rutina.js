@@ -79,6 +79,16 @@
     const bruto = document.getElementById('datos');
     if (!bruto) return;
 
+    // Acceso pausado por el coach: la rutina sigue aquí pero cifrada con una
+    // clave que ya no está en ningún link. Ni este ni los que haya reenviado.
+    if (document.body.dataset.estado === 'pausada') {
+      aviso('Tu acceso está en pausa', [
+        'Tu plan sigue guardado, no se perdió nada.',
+        'Escríbele a tu coach para reactivarlo y te manda tu link nuevo.',
+      ], document.body.dataset.wa || '');
+      return;
+    }
+
     // El navegador solo permite descifrar en páginas seguras (https).
     // Si alguien abre el archivo descargado con doble clic, se lo explicamos.
     if (!window.crypto || !crypto.subtle) {

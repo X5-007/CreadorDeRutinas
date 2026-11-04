@@ -77,4 +77,5 @@ const EJERCICIOS = [
   { id: "crunch-polea", nombre: "Crunch en polea", grupo: "Abdomen", clip: "" },
   { id: "plancha", nombre: "Plancha", grupo: "Abdomen", clip: "plancha.gif", poster: "plancha.jpg" },
   { id: "elevacion-piernas", nombre: "Elevación de piernas colgado", grupo: "Abdomen", clip: "" },
+  { id: "oblicuos-en-maquina", nombre: "Oblicuos en Máquina", grupo: "Abdomen", clip: "oblicuos-en-maquina.gif", poster: "oblicuos-en-maquina.jpg" },
 ];

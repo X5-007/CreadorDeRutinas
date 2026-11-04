@@ -10,7 +10,7 @@
    clip    -> archivo dentro de clips/ (GIF, MP4 o WebM). "" si aún no lo tienes.
    poster  -> imagen que se ve antes de que cargue el video (opcional).
 
-   Generado desde el armador el 31/10/2026.
+   Generado desde el armador el 4/11/2026.
    ========================================================================= */
 
 const GRUPOS = [
@@ -65,7 +65,7 @@ const EJERCICIOS = [
   { id: "sentadilla-sumo", nombre: "Sentadilla Sumo", grupo: "Glúteo", clip: "sentadilla-sumo.webp", poster: "sentadilla-sumo.jpg" },
   { id: "sentadilla-bulgara", nombre: "Sentadilla búlgara", grupo: "Glúteo", clip: "sentadilla-bulgara.gif", poster: "sentadilla-bulgara.jpg" },
   { id: "zancadas-mancuernas", nombre: "Zancadas", grupo: "Glúteo", clip: "zancadas-mancuernas.gif", poster: "zancadas-mancuernas.jpg" },
-  { id: "hip-thrust", nombre: "Hip thrust", grupo: "Glúteo", clip: "" },
+  { id: "hip-thrust", nombre: "Hip thrust", grupo: "Glúteo", clip: "hip-thrust.gif", poster: "hip-thrust.jpg" },
   { id: "patada-gluteo-polea", nombre: "Patada de glúteo en polea", grupo: "Glúteo", clip: "" },
   { id: "abductores-maquina", nombre: "Abductores en máquina", grupo: "Abductor y Aductor", clip: "abductores-maquina.gif", poster: "abductores-maquina.jpg" },
   { id: "aductor-maquina", nombre: "Aductor en máquina", grupo: "Abductor y Aductor", clip: "aductor-maquina.gif", poster: "aductor-maquina.jpg" },

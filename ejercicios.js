@@ -53,7 +53,7 @@ const EJERCICIOS = [
   { id: "jalon-polea-triceps", nombre: "Jalón de tríceps en polea", grupo: "Tríceps", clip: "jalon-polea-triceps.gif", poster: "jalon-polea-triceps.jpg" },
   { id: "triceps-copa", nombre: "Tríceps Copa", grupo: "Tríceps", clip: "triceps-copa.gif", poster: "triceps-copa.jpg" },
   { id: "press-frances", nombre: "Press francés", grupo: "Tríceps", clip: "" },
-  { id: "fondos-banca", nombre: "Fondos en banca", grupo: "Tríceps", clip: "" },
+  { id: "fondos-banca", nombre: "Fondos en banca", grupo: "Tríceps", clip: "fondos-banca.gif", poster: "fondos-banca.jpg" },
   { id: "sentadilla-smith", nombre: "Sentadilla en Smith", grupo: "Cuádriceps", clip: "sentadilla-smith.webp", poster: "sentadilla-smith.jpg" },
   { id: "prensa-piernas", nombre: "Prensa de piernas", grupo: "Cuádriceps", clip: "prensa-piernas.gif", poster: "prensa-piernas.jpg" },
   { id: "extension-cuadriceps", nombre: "Extensiones de cuádriceps", grupo: "Cuádriceps", clip: "extension-cuadriceps.gif", poster: "extension-cuadriceps.jpg" },
@@ -77,5 +77,4 @@ const EJERCICIOS = [
   { id: "crunch-polea", nombre: "Crunch en polea", grupo: "Abdomen", clip: "" },
   { id: "plancha", nombre: "Plancha", grupo: "Abdomen", clip: "plancha.gif", poster: "plancha.jpg" },
   { id: "elevacion-piernas", nombre: "Elevación de piernas colgado", grupo: "Abdomen", clip: "" },
-  { id: "remo-en-t", nombre: "Remo en T", grupo: "Espalda", clip: "remo-en-t.gif", poster: "remo-en-t.jpg" },
 ];
